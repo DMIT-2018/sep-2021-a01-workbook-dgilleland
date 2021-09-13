@@ -6,7 +6,10 @@
 
 ## Table of Contents
 
-> *Create an un-ordered list here for your own table of contents, and add links to additional Markdown pages in this folder.*
+- [My Journal](./Journal.md)
+- [git Commands](./git-commands.md)
+- [git and VS Code Terminal](./git+VSCode.md)
+- [Notes on Markdown](./Markdown.md)
 
 ----
 
