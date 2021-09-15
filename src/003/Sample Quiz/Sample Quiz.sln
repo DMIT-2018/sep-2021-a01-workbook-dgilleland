@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.Language.Quiz", "CSharp.Language.Quiz\CSharp.Language.Quiz.csproj", "{14381D0E-FE05-4FFF-98D6-34260EC58249}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14381D0E-FE05-4FFF-98D6-34260EC58249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14381D0E-FE05-4FFF-98D6-34260EC58249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14381D0E-FE05-4FFF-98D6-34260EC58249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14381D0E-FE05-4FFF-98D6-34260EC58249}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {757538F0-65C9-4864-A2F3-956D42E12817}
+	EndGlobalSection
+EndGlobal

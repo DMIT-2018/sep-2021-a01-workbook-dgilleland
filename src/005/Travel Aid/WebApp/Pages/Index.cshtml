@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1 class="display-2">English-Klingon Travel Aid</h1>
+<blockquote class="display-4">Popular Phrases</blockquote>
+
+<form method="post">
+    <label>
+        English Phrase
+        <input type="text" asp-for="PopularPhrase.English" required />
+    </label>
+    <br />
+    <label>
+        In Klingon
+        <input type="text" asp-for="PopularPhrase.Klingon" required />
+    </label>
+    <br />
+    <button type="submit">Add Phrase</button>
+</form>
+
+@if(Model.PopularPhrase != null) 
+{
+    <p>You added the phrase "@Model.PopularPhrase.Klingon", which means "@Model.PopularPhrase.English".</p>
+}
