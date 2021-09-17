@@ -25,3 +25,17 @@
 {
     <p>You added the phrase "@Model.PopularPhrase.Klingon", which means "@Model.PopularPhrase.English".</p>
 }
+
+<table class="table table-hover">
+    <tr>
+        <th>English</th>
+        <th>Klingon</th>
+    </tr>
+    @foreach(var item in IndexModel.TravelAid)
+    {
+        <tr>
+            <td>@item.English</td>
+            <td>@item.Klingon</td>
+        </tr>
+    }
+</table>

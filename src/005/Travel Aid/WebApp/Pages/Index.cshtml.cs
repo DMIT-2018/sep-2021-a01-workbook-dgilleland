@@ -19,17 +19,24 @@ namespace WebApp.Pages
         }
 
         // This property will receive the value(s) from the form when a POST request is generated
-        [BindProperty]
+        [BindProperty] // This attribute allows the ASP.NET to store the POST data into this property.
         public Translation PopularPhrase { get; set; }
+
+        // TEMP: In leu of a database, we will use a static List<T> to store the translations
+        public static List<Translation> TravelAid { get; set; }
+            = new(); // C# 9 - simplified way of instantiating
 
         public void OnGet()
         {
             // This runs when the request method is a GET
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
             // This runs when the request method is a POST
+            TravelAid.Add(PopularPhrase); // "store" the information
+            //Post-Redirect-Get Pattern
+            return RedirectToPage();
         }
     }
 }
