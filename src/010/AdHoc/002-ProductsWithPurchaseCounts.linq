@@ -13,8 +13,12 @@
   </Connection>
 </Query>
 
-// - Filter on partial name
-// List employees who have an "an" in their first name
-from person in Employees
-where person.FirstName.Contains("an")
-select person
+from item in Products
+select new
+{
+	Name = item.ProductName,
+	ID = item.ProductID,
+	Supplier = item.Supplier.CompanyName,
+	Category = item.Category.CategoryName,
+	NumberOfPurchases = item.OrderDetails.Count
+}
