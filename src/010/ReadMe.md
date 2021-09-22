@@ -8,8 +8,8 @@
 
 > TODO:
 > 
-> - [ ] Using LinqPad (a C# NotePad)
-> - [ ] Connecting to & Exploring a Database
+> - [x] Using LinqPad (a C# NotePad)
+> - [x] Connecting to & Exploring a Database
 > - [ ] LINQ Query Syntax - See [the demos](./Linq-QuerySyntax)
 > - [ ] LINQ Method Syntax
 
