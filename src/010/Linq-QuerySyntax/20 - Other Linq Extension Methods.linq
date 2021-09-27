@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>05a2444e-14ea-4451-ad3d-3398e9ff7898</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
   </Connection>
@@ -15,7 +14,7 @@ void Main()
     cityNames.Dump("All customer cities");
     cityNames.Distinct().Dump("All cities - no duplicates");
     
-    // .Take() & .Skip()
+    // .Take() & .Skip() -- These are ideal for Pagination (where you display x results per page)
     cityNames.Take(5).Dump("First five cities");
     cityNames.Skip(5).Take(3).Dump("Next three cities");
     

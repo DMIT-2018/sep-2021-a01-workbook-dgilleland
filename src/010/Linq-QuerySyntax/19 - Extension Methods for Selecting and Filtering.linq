@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
-    <ID>5265d1f5-021e-4878-9587-a78d45e7824e</ID>
-    <Persist>true</Persist>
+    <ID>05a2444e-14ea-4451-ad3d-3398e9ff7898</ID>
     <Server>.</Server>
     <Database>WestWind</Database>
   </Connection>
@@ -27,7 +26,7 @@ void Main()
     staff2.OrderBy(name => name.LastName).Dump("Staff by last name");
     
     
-    // .First() and .FirstOrDefault()
+    // .First() and .FirstOrDefault() - Expects a list of possibly many items, but only takes the first
     staff2.First().Dump("First person in the staff object list");
     staff2.OrderBy(person => person.BirthDate).First().Dump("The oldest staff member");
     staff2.First(person => person.FirstName.Contains("an")).Dump("First in list with 'an' in their name");
@@ -36,7 +35,7 @@ void Main()
     var me = Employees.FirstOrDefault(person => person.FirstName.StartsWith("Dan"));
     me.Dump("First person named Dan");
     
-    // .Single() and .SingleOrDefault()
+    // .Single() and .SingleOrDefault() - Expects only a single item matching the predicate
     staff.Single(person => person.StartsWith("R")).Dump("Staff member starting with 'R'");
     //staff.Single(person => person.StartsWith("M")).Dump("Staff member starting with 'M'");
     staff.SingleOrDefault(person => person.StartsWith("Z")).Dump("Staff member starting with 'Z'");

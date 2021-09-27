@@ -85,8 +85,11 @@ DMIT-2018 | Sep 2021 | A01
 
 [0:00] Intro
 [0:21] Agenda and Announcements
-
-[2:00:00] - Outro + Credits
+[0:41] LINQ Query Syntax Notes
+[2:00] LINQ Practice Questions
+[4:05] LINQ Order By
+[13:29] LINQ Group By
+[1:09:18] - Outro + Credits
 
 ----
 ![Next Week](./docs/images/Video-Separator.jpg)

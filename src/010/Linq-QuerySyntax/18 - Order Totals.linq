@@ -14,11 +14,11 @@ select new
     OrderId = sale.OrderID,
     Company = sale.Customer.CompanyName,
     FreightCharge = sale.Freight,
-	LineItemCount = sale.OrderDetails.Count(), // Add in another line to calculate the LineItemCount
     Subtotal = sale.OrderDetails.Sum(lineItem => lineItem.Quantity * lineItem.UnitPrice),
     DiscountSubtotal = 
         sale.OrderDetails.Sum(lineItem =>
-                              lineItem.Quantity * lineItem.UnitPrice * (decimal)lineItem.Discount),
+							  lineItem.Quantity * lineItem.UnitPrice * (decimal)lineItem.Discount),
+	LineItemCount = sale.OrderDetails.Count(), // Add in another line to calculate the LineItemCount
 	LineItems = from item in sale.OrderDetails
 	            select new
 				{

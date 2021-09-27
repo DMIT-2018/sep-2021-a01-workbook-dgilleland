@@ -2,9 +2,14 @@
 
 void Main()
 {
+	//string sentence = "My name is Dan Gilleland";
+	//var characterCount = sentence.Length;
+	//characterCount.Dump("Characters in String");
+	//var words = sentence.Split(' ');
+	//words.Length.Dump("Words in string");
 	//DemoExtensions();
-	//DemoLinkedList();
-	DemoDelegates();
+	DemoLinkedList();
+	//DemoDelegates();
 }
 
 // You can define other methods, fields, classes and namespaces here
