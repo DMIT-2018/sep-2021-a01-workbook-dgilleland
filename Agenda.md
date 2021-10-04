@@ -26,7 +26,7 @@
 
 ## Oct 1
 
-- **Friday, Oct 8** - Date for first In-Class Assessment (on LINQ)
-- Today's Class - *Lab time for LINQ Take-Home*
+- **Friday, Oct 8** - First In-Class Assessment (on LINQ)
+- Today's Class - *Lab time for LINQ Take-Home* - due by Wed, Oct 6 class.
 - Next Week - Intro to ASP.NET Core
 
