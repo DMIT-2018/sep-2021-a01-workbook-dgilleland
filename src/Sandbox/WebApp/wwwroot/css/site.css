@@ -1,1 +1,8 @@
-﻿
+﻿main {
+    max-width: initial;
+}
+
+footer {
+    padding: 0 1em;
+    background-color: var(--bg-pane);
+}
