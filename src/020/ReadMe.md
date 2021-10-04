@@ -1,4 +1,4 @@
-# NAME ![Code](https://img.shields.io/badge/Code%20Status-Demo-blueviolet?logo=Visual%20Studio%20Code&labelColor=indigo)
+# ASP.NET Core ![Code](https://img.shields.io/badge/Code%20Status-Demo-blueviolet?logo=Visual%20Studio%20Code&labelColor=indigo)
 
 > Begin this lesson by moving this folder into the [`src\`](../../src/) folder.
 
