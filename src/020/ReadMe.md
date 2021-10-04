@@ -8,9 +8,11 @@
 
 > The demos for this lesson series will be delivered *ad-hoc* this term. Be sure to follow along in class and refer to the instructor's workbook when necessary.
 
-- [ ] Create application
-  - [ ] **d0css** site design
-- [ ] Add Class Library
+- **Lesson 020**
+  - [ ] Create application
+    - [ ] **d0css** site design
+  - [ ] Add Class Library
+- > *NEXT Lessons*
 - [ ] Database Model
   - [ ] Reverse-Engineer
   - [ ] Make classes internal
