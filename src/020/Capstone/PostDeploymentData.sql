@@ -9,6 +9,11 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]                    
 --------------------------------------------------------------------------------------
 */
+INSERT DbVersion(Major, Minor, Build, ReleaseDate)
+VALUES (1, 0, 0, GETDATE())
+GO
+
+
 SET IDENTITY_INSERT [dbo].[CapstoneClients] ON 
 GO
 INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [Confirmed]) VALUES (1, N'Gerhold Inc', N'Digitized disintermediate emulation', N'Joanne Bashirian', 1)

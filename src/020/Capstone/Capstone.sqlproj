@@ -65,6 +65,7 @@
     <Build Include="dbo\Tables\CapstoneClients.sql" />
     <Build Include="dbo\Tables\Students.sql" />
     <Build Include="dbo\Tables\TeamAssignments.sql" />
+    <Build Include="dbo\Tables\DbVersion.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentData.sql" />
