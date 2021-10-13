@@ -12,10 +12,10 @@
   - [ ] Create application
     - [ ] **d0css** site design
   - [ ] Add Class Library
+  - [ ] Database Model
+    - [ ] Reverse-Engineer
+    - [ ] Make classes internal
 - > *NEXT Lessons*
-- [ ] Database Model
-  - [ ] Reverse-Engineer
-  - [ ] Make classes internal
 - [ ] About page with database and server information
   - Db version & date
   - Web Server type, content path & application path
