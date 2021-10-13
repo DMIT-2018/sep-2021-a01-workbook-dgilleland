@@ -16,7 +16,11 @@ namespace Backend
         public static void AddBackendDependencies(this IServiceCollection services, Action<DbContextOptionsBuilder> options)
         {
             services.AddDbContext<CapstoneContext>(options);
-            services.AddTransient<AboutService>();
+            services.AddTransient<AboutService>((serviceProvider) => 
+            {
+                var context = serviceProvider.GetRequiredService<CapstoneContext>();
+                return new AboutService(context);
+            });
         }
     }
 }
