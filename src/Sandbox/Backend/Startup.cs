@@ -13,11 +13,9 @@ namespace Backend
 {
     public static class StartupExtensions
     {
-        public static void AddBackendDependencies(this IServiceCollection services, IConfiguration configuration)
+        public static void AddBackendDependencies(this IServiceCollection services, Action<DbContextOptionsBuilder> options)
         {
-            services.AddDbContext<CapstoneContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CapstoneContext>(options);
             services.AddTransient<AboutService>();
         }
     }
