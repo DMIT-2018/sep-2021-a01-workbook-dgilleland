@@ -10,11 +10,13 @@ namespace Backend.BLL
 {
     public class AboutService
     {
+        #region Constructor and DI fields
         private readonly CapstoneContext _context;
         internal AboutService(CapstoneContext context)
         {
             _context = context;
         }
+        #endregion
 
         public DatabaseVersion GetDatabaseVersion()
         {

@@ -28,9 +28,17 @@
 - Today's Class - *Lab time for LINQ Take-Home* - due by Wed, Oct 6 class.
 - Next Week - Intro to ASP.NET Core
 
- -->
-
 ## Oct 4
 
 - LINQ Q & A
 - Lesson 020 Series - **Intro to ASP.NET Core**
+
+-->
+
+## Oct 13
+
+- Lesson 020 Series
+  - **021** Getting Serious about OOP
+    - `record` types in C# 9
+    - Dependency Injection - *Nothing `new` Here!*
+      - Minimize Dependencies, Rely on abstractions

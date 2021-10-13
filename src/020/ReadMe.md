@@ -15,13 +15,14 @@
   - [ ] Database Model
     - [ ] Reverse-Engineer
     - [ ] Make classes internal
+- **Lesson 021**
+  - [ ] About page with database and server information
+    - Db version & date
+    - Web Server type, content path & application path
+      - `WebRootPath`
+      - [Environments](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0) and the [`<environment>` tag helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/environment-tag-helper?view=aspnetcore-5.0)
+    - Notes on [Tag Helpers](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/?view=aspnetcore-5.0)
 - > *NEXT Lessons*
-- [ ] About page with database and server information
-  - Db version & date
-  - Web Server type, content path & application path
-    - `WebRootPath`
-    - [Environments](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-5.0) and the [`<environment>` tag helper](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/environment-tag-helper?view=aspnetcore-5.0)
-  - Notes on [Tag Helpers](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/?view=aspnetcore-5.0)
 - [ ] Query vs Command
 - [ ] Query Samples
   - [ ] Our Staff
