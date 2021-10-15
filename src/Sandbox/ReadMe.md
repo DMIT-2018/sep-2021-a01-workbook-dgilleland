@@ -80,3 +80,22 @@ services.AddBackendDependencies(options =>
         Configuration.GetConnectionString("Capstone")));
 ```
 
+Don't forget that you still have to set up your connection string (in the `appSettings.json` file).
+
+```js
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-WebApp-53bc9b9d-9d6a-45d4-8429-2a2761773502;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "Capstone": "Server=.;Database=Capstone;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}
+```
+
