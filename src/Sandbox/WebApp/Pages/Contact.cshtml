@@ -1,0 +1,13 @@
+﻿@page
+@model WebApp.Pages.ContactModel
+@{
+}
+
+<h1>Contact Us</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <label>Your Resume
+        <input type="file" accept=".pdf" asp-for="ApplicantResume" />
+    </label>
+    <button type="submit">Upload File</button>
+</form>

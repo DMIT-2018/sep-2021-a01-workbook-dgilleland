@@ -1,8 +1,16 @@
 ﻿@page
 @model WebApp.Pages.AboutModel
 @{
+    var db = Model.DatabaseVersion;
+    var info = Model.DatabaseInfo;
 }
 
 <h1>About</h1>
 
-<p>@Model.DatabaseVersion</p>
+<h2>Database Details</h2>
+
+<p>The Capstone database version is <mark>@db.Version</mark>. The connection string is <code>@info.ConnectionString</code>.</p>
+
+<h2>Web Server Details</h2>
+
+<p>Static web files are located at <code>@Model.WebRootPath</code>. The application's root path is <code>@Model.ApplicationPath</code>.</p>

@@ -35,10 +35,16 @@
 
 -->
 
-## Oct 13
+## Oct 13 - Lesson 020 Series
 
-- Lesson 020 Series
-  - **021** Getting Serious about OOP
-    - `record` types in C# 9
-    - Dependency Injection - *Nothing `new` Here!*
-      - Minimize Dependencies, Rely on abstractions
+- **021** Getting Serious about OOP
+  - `record` types in C# 9
+  - Dependency Injection - *Nothing `new` Here!*
+    - Minimize Dependencies, Rely on abstractions
+
+## Oct 15 - Lesson 020 Series
+
+- **021** More Environment Information
+  - Database Type and Connection Information
+  - Web Server type, content path & application path
+    - Upload a File (`Resume`)

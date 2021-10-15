@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,17 @@ namespace Backend.BLL
         {
             var versionInfo = _context.DbVersions.Single();
             return new DatabaseVersion(new Version(versionInfo.Major, versionInfo.Minor, versionInfo.Build), versionInfo.ReleaseDate);
+        }
+
+        public DatabaseInfo GetDatabaseInformation()
+        {
+            string connectionString = _context.Database.GetConnectionString();
+
+            var result = new DatabaseInfo
+            { // This is an Initializer List
+                ConnectionString = connectionString
+            };
+            return result;
         }
     }
 }
