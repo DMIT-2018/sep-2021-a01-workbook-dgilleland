@@ -45,6 +45,7 @@
       - Post-Redirect-Get Pattern
         - Using `[TempData]` for feedback
       - Validation
+    - **Test Data** - [RandomUser.me](https://randomuser.me/)
   - [ ] **Practice** - West Wind Demo
     - Create solution, Razor Pages project, and class library.
     - Reverse-engineer Database
