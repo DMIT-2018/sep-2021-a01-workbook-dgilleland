@@ -33,8 +33,6 @@
 - LINQ Q & A
 - Lesson 020 Series - **Intro to ASP.NET Core**
 
--->
-
 ## Oct 13 - Lesson 020 Series
 
 - **021** Getting Serious about OOP
@@ -48,3 +46,13 @@
   - Database Type and Connection Information
   - Web Server type, content path & application path
     - Upload a File (`Resume`)
+
+-->
+
+## Oct 18/20 - Lesson 020 Series
+
+- **022** CRUD with Internal Entities
+  - Sandbox - Capstone Students
+  - WestWind - **Practice/Homework**
+  - [12 minute Video](https://www.youtube.com/watch?v=qpH7-KFWZRI&list=PLWtPDlPVWF-9AmUZ49tWVtF3sF8guC5Xj&index=19) - **Prep Next Class**
+
