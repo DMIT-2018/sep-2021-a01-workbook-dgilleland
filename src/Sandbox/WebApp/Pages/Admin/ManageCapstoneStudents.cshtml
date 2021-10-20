@@ -1,0 +1,20 @@
+﻿@page "{SelectedStudent?}"
+@model WebApp.Pages.Admin.ManageCapstoneStudentsModel
+@{
+}
+
+<h1>Manage Capstone Students</h1>
+
+<form method="post">
+    <label>Lookup Student
+        <input asp-for="SelectedStudent" type="text" list="existing-students" placeholder="Partial first/last name"/>
+        <datalist id="existing-students">
+            @foreach(var person in Model.AllStudents)
+            {
+                <option value="@person.StudentId">@person.FormalName</option>
+            }
+        </datalist>
+    </label>
+    <button type="submit">Get Student Information</button>
+</form>
+<p>Looking up information for student id "@Model.SelectedStudent".</p>
