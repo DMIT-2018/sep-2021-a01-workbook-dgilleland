@@ -7,7 +7,9 @@
 
 <form method="post">
     <label>Lookup Student
-        <input asp-for="SelectedStudent" type="text" list="existing-students" placeholder="Partial first/last name"/>
+        <input asp-for="SelectedStudent" type="text" list="existing-students" placeholder="Partial first/last name"
+               onchange="this.form.submit()"/>
+        @*Having the onchange event handler (using JavaScript), I won't need the submit button to get student info*@
         <datalist id="existing-students">
             @foreach(var person in Model.AllStudents)
             {
@@ -17,4 +19,30 @@
     </label>
     <button type="submit">Get Student Information</button>
 </form>
-<p>Looking up information for student id "@Model.SelectedStudent".</p>
+<p>
+    @Model.ErrorMessage
+    @Model.FeedbackMessage
+</p>
+
+<form method="post">
+    <button type="submit" asp-page-handler="Add">Add</button>
+    <button type="submit" asp-page-handler="Update">Update</button>
+    <button type="submit" asp-page-handler="Delete">Delete</button>
+    <button type="submit" asp-page-handler="Clear">Clear</button>
+    <input type="hidden" asp-for="SelectedStudent" />
+
+    <label>
+        School ID
+        <input asp-for="CurrentStudent.ID" placeholder="School ID" />
+    </label>
+
+    <label>
+        First Name
+        <input asp-for="CurrentStudent.FirstName" placeholder="Student First Name" />
+    </label>
+
+    <label>
+        LastName
+        <input asp-for="CurrentStudent.LastName" placeholder="Student Last Name" />
+    </label>
+</form>

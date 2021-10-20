@@ -27,6 +27,21 @@ namespace Backend.BLL
             return result.ToList();
         }
 
+        /// <summary>
+        /// Finds a <see cref="Models.Student"/> from a given database PK value.
+        /// </summary>
+        /// <param name="studentIdPk">The Primary Key for the Entity (not to be confused with the School ID)</param>
+        /// <returns><see cref="Models.Student"/> instance or <code>null</code> if no information found in the database</returns>
+        public Models.Student LookupStudent(int studentIdPk)
+        {
+            // Remember to map our database Entity results from the lookup to our View Model type
+            Models.Student result = null;
+            var found = _context.Students.Find(studentIdPk);
+            if (found != null)
+                result = new(found.SchoolId, found.FirstName, found.LastName);
+            return result;
+        }
+
         public int AddStudent(Backend.Models.Student student)
         {
             // Validation of no duplicates
