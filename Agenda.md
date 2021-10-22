@@ -49,7 +49,7 @@
 
 -->
 
-## Oct 18/20 - Lesson 020 Series
+## Oct 18/20/22 - Lesson 020 Series
 
 - **022** CRUD with Internal Entities
   - Sandbox - Capstone Students
