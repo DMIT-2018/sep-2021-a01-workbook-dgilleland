@@ -61,19 +61,49 @@ namespace WebApp.Pages.Admin
                 while (innermost.InnerException != null)
                     innermost = innermost.InnerException;
                 ErrorMessage = innermost.Message;
-                AllStudents = _service.ListCapstoneStudents(); // I forgot to add this line.....
+                AllStudents = _service.ListCapstoneStudents();
                 return Page();
             }
         }
 
         public IActionResult OnPostUpdate()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.UpdateStudent(SelectedStudent.Value, CurrentStudent);
+                FeedbackMessage = $"Successfully updated information for {CurrentStudent.FirstName}.";
+                return RedirectToPage(new { SelectedStudent = SelectedStudent });
+            }
+            catch (Exception ex)
+            {
+                // The response to the browser is the result of this POST processing
+                Exception innermost = ex;
+                while (innermost.InnerException != null)
+                    innermost = innermost.InnerException;
+                ErrorMessage = innermost.Message;
+                AllStudents = _service.ListCapstoneStudents();
+                return Page();
+            }
         }
 
         public IActionResult OnPostDelete()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.DeleteStudent(SelectedStudent.Value);
+                FeedbackMessage = $"Successfully removed {CurrentStudent.FirstName} {CurrentStudent.LastName} ({CurrentStudent.ID}).";
+                return RedirectToPage(new { SelectedStudent = (int?)null });
+            }
+            catch (Exception ex)
+            {
+                // The response to the browser is the result of this POST processing
+                Exception innermost = ex;
+                while (innermost.InnerException != null)
+                    innermost = innermost.InnerException;
+                ErrorMessage = innermost.Message;
+                AllStudents = _service.ListCapstoneStudents();
+                return Page();
+            }
         }
 
         public IActionResult OnPostClear()

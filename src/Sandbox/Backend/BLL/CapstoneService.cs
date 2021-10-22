@@ -63,12 +63,26 @@ namespace Backend.BLL
         public void UpdateStudent(int studentId, Backend.Models.Student student)
         {
             // Validation of no duplicates
-            throw new NotImplementedException(nameof(UpdateStudent)); // TODO: Finish this....
+            if (_context.Students.Any(person => person.SchoolId == student.ID && person.StudentId != studentId))
+                throw new ArgumentOutOfRangeException(nameof(student.ID), $"Another student already exists with that school id; correct that student before reassigning the {student.ID} to this student");
+            // Update
+            var existing = _context.Students.Find(studentId);
+            if (existing is null)
+                throw new ArgumentException("Could not find the specified student", nameof(studentId));
+
+            existing.FirstName = student.FirstName;
+            existing.LastName = student.LastName;
+            existing.SchoolId = student.ID;
+            _context.SaveChanges();
         }
 
         public void DeleteStudent(int studentId)
         {
-            throw new NotImplementedException(nameof(DeleteStudent)); // TODO: Finish this....
+            var existing = _context.Students.Find(studentId);
+            if (existing is null)
+                throw new ArgumentException("Could not find the specified student", nameof(studentId));
+            _context.Students.Remove(existing);
+            _context.SaveChanges();
         }
         #endregion
     }
