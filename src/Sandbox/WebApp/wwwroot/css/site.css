@@ -6,3 +6,8 @@ footer {
     padding: 0 1em;
     background-color: var(--bg-pane);
 }
+
+.field-validation-error {
+    font-weight: bold;
+    color: firebrick;
+}
