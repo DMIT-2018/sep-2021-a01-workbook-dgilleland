@@ -16,7 +16,7 @@ namespace WestWind.App.Entities
         public Employee()
         {
             EmployeeTerritories = new HashSet<EmployeeTerritory>();
-            InverseReportsToNavigation = new HashSet<Employee>();
+            Subordinates = new HashSet<Employee>();
             Orders = new HashSet<Order>();
         }
 
@@ -65,12 +65,12 @@ namespace WestWind.App.Entities
         [InverseProperty("Employee")]
         public virtual Address Address { get; set; }
         [ForeignKey(nameof(ReportsTo))]
-        [InverseProperty(nameof(Employee.InverseReportsToNavigation))]
+        [InverseProperty(nameof(Employee.Subordinates))]
         public virtual Employee ReportsToNavigation { get; set; }
         [InverseProperty(nameof(EmployeeTerritory.Employee))]
         public virtual ICollection<EmployeeTerritory> EmployeeTerritories { get; set; }
         [InverseProperty(nameof(Employee.ReportsToNavigation))]
-        public virtual ICollection<Employee> InverseReportsToNavigation { get; set; }
+        public virtual ICollection<Employee> Subordinates { get; set; }
         [InverseProperty(nameof(Order.SalesRep))]
         public virtual ICollection<Order> Orders { get; set; }
     }

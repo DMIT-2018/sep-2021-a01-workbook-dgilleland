@@ -33,8 +33,8 @@ namespace WestWind.App.Entities
         [InverseProperty("Shipments")]
         public virtual Order Order { get; set; }
         [ForeignKey(nameof(ShipVia))]
-        [InverseProperty(nameof(Shipper.Shipments))]
-        public virtual Shipper ShipViaNavigation { get; set; }
+        [InverseProperty(nameof(Entities.Shipper.Shipments))]
+        public virtual Shipper Shipper { get; set; }
         [InverseProperty(nameof(ManifestItem.Shipment))]
         public virtual ICollection<ManifestItem> ManifestItems { get; set; }
     }

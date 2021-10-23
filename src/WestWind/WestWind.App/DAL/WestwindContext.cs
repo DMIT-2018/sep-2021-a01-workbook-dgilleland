@@ -68,7 +68,7 @@ namespace WestWind.App.DAL
                     .HasConstraintName("FK_Employees_Addresses");
 
                 entity.HasOne(d => d.ReportsToNavigation)
-                    .WithMany(p => p.InverseReportsToNavigation)
+                    .WithMany(p => p.Subordinates)
                     .HasForeignKey(d => d.ReportsTo)
                     .HasConstraintName("FK_Employees_Employees");
             });
@@ -204,7 +204,7 @@ namespace WestWind.App.DAL
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Shipments_ToOrders");
 
-                entity.HasOne(d => d.ShipViaNavigation)
+                entity.HasOne(d => d.Shipper)
                     .WithMany(p => p.Shipments)
                     .HasForeignKey(d => d.ShipVia)
                     .OnDelete(DeleteBehavior.ClientSetNull)

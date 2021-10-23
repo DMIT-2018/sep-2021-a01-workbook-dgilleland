@@ -22,7 +22,7 @@ namespace WestWind.App.Entities
         [Required]
         [Column("Address")]
         [StringLength(60)]
-        public string Address1 { get; set; }
+        public string StreetAddress { get; set; }
         [Required]
         [StringLength(15)]
         public string City { get; set; }

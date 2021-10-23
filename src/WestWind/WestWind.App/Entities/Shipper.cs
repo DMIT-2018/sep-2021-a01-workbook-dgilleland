@@ -26,7 +26,7 @@ namespace WestWind.App.Entities
         [StringLength(24)]
         public string Phone { get; set; }
 
-        [InverseProperty(nameof(Shipment.ShipViaNavigation))]
+        [InverseProperty(nameof(Shipment.Shipper))]
         public virtual ICollection<Shipment> Shipments { get; set; }
     }
 }
