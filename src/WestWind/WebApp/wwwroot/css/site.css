@@ -1,11 +1,13 @@
 ﻿.error {
-    background-color: var(--danger-color);
-    color: var(--danger-text-color);
+    background-color: var(--danger-text-background-color);
+    border-left: .5rem solid var(--danger-color);
     padding: .1em 1em;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .success {
-    background-color: var(--success-color);
-    color: var(--success-text-color);
+    background-color: var(--success-text-background-color);
+    border-left: .5rem solid var(--success-color);
     padding: .1em 1em;
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,16 @@ namespace WestWind.App.BLL
 
         public void UpdateShipper(Shipper data)
         {
-            throw new NotImplementedException($"TODO: {nameof(UpdateShipper)}() has not been implemented.");
+            var changes = new Entities.Shipper
+            {
+                ShipperId = data.ID,
+                CompanyName = data.CompanyName,
+                Phone = data.Phone
+            };
+            var compared =_context.Entry(changes);
+            compared.State = EntityState.Modified;
+
+            _context.SaveChanges();
         }
 
         public void DeleteShipper(int shipperId)
