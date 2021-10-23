@@ -1,0 +1,28 @@
+﻿@page
+@model WebApp.Pages.Admin.Database.ManageShippersModel
+@{
+}
+
+@*![](../../Design/ManageShippers.png)*@
+
+<h1>Manage Shippers</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Company Name</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var company in Model.CurrentShippers)
+            {
+                <tr>
+                    <td></td>
+                    <td>@company.CompanyName</td>
+                    <td>@company.Phone</td>
+                </tr>
+            }
+    </tbody>
+</table>

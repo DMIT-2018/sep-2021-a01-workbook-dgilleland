@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{59A677E0-DD28-406F-A927-1AD92FA10C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestWind.App", "WestWind.App\WestWind.App.csproj", "{D362EA01-0DA9-4902-82D5-5DFC37ACF656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WestWind.App", "WestWind.App\WestWind.App.csproj", "{D362EA01-0DA9-4902-82D5-5DFC37ACF656}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
