@@ -51,7 +51,8 @@ namespace WestWind.App.BLL
 
         public void DeleteShipper(int shipperId)
         {
-            throw new NotImplementedException($"TODO: {nameof(DeleteShipper)}() has not been implemented.");
+            _context.Shippers.Remove(_context.Shippers.Find(shipperId));
+            _context.SaveChanges();
         }
         #endregion
     }

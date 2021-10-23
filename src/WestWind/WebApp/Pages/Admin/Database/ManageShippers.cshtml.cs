@@ -29,6 +29,9 @@ namespace WebApp.Pages.Admin.Database
 
         [TempData]
         public string TempFeedback { get; set; }
+        public string ErrorMessage { get; set; }
+        public bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
+        public bool HasFeedback => !string.IsNullOrWhiteSpace(TempFeedback);
 
         public void OnGet()
         {
@@ -50,8 +53,41 @@ namespace WebApp.Pages.Admin.Database
 
         public IActionResult OnPostUpdate()
         {
+            // TODO: Wrap with try/catch
             TempFeedback = $"Updated shipper information for {ShipperData.ID} ({ShipperData.CompanyName} - {ShipperData.Phone}).";
             return RedirectToPage(new { SelectedShipperId = ShipperData.ID });
+        }
+
+        public IActionResult OnPostInsert()
+        {
+            // TODO: Wrap with try/catch
+            TempFeedback = $"New shipper information added ({ShipperData.CompanyName} - {ShipperData.Phone}).";
+            _service.AddShipper(ShipperData);
+            return RedirectToPage(new { SelectedShipperId = (int?)null });
+        }
+
+        public IActionResult OnPostDelete()
+        {
+            try
+            {
+                _service.DeleteShipper(SelectedShipperId.Value);
+                TempFeedback = $"Remove shipper {SelectedShipperId}.";
+                return RedirectToPage(new { SelectedShipperId = (int?)null });
+            }
+            catch (Exception ex)
+            {
+                // Get to the root of the problem
+                Exception innermost = ex;
+                while (innermost.InnerException != null)
+                    innermost = innermost.InnerException;
+                ErrorMessage = innermost.Message;
+
+                // Populate the list of shippers
+                CurrentShippers = _service.ListShippers();
+
+                // Return this page POST processing results
+                return Page();
+            }
         }
     }
 }

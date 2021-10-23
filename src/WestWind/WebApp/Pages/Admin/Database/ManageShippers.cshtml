@@ -9,7 +9,14 @@
 
 <form method="post" id="editForm"></form>
 
-<blockquote>@Model.TempFeedback</blockquote>
+@if (Model.HasFeedback)
+{
+    <blockquote class="success">@Model.TempFeedback</blockquote>
+}
+@if (Model.HasError)
+{
+    <blockquote class="error">@Model.ErrorMessage</blockquote>
+}
 
 <table>
     <thead>
@@ -20,60 +27,69 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var company in Model.CurrentShippers)
-            {
-                <tr>
-                    <td>
-                        @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
-                        {
-                            // Edit Mode
-                            <text>
-                                <button type="submit" form="editForm" asp-page-handler="Update"><i class="las la-check"></i></button>
-                                <button type="submit" form="editForm" asp-page-handler="Cancel"><i class="las la-times"></i></button>
-                                <input type="hidden" asp-for="ShipperData.ID" value="@company.ID" form="editForm" />
-                            </text>
-                        }
-                        else
-                        {
-                            // View Mode
-                            <form method="post">
-                                <input type="hidden" asp-for="SelectedShipperId" value="@company.ID" />
-                                <button type="submit" title="Edit this shipper"><i class="las la-pencil-alt"></i></button>
-                                <button><i class="lar la-trash-alt"></i></button>
-                            </form>
-                        }
-                    </td>
-                    <td>
-                        @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
-                        {
-                            <input type="text" form="editForm" asp-for="ShipperData.CompanyName" value="@company.CompanyName" />
-                        }
-                        else
-                        {
-                            @: @company.CompanyName
-                        }
-                    </td>
-                    <td>
-                        @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
-                        {
-                            <input type="text" form="editForm" asp-for="ShipperData.Phone" value="@company.Phone" />
-                        }
-                        else
-                        {
-                            @: @company.Phone
-                        }
-                    </td>
-                </tr>
-            }
+        @foreach (var company in Model.CurrentShippers)
+        {
+            <tr>
+                <td>
+                    @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
+                    {
+                        // Edit Mode
+                        <text>
+                            <button type="submit" form="editForm" asp-page-handler="Update"><i class="las la-check"></i></button>
+                            <button type="submit" form="editForm" asp-page-handler="Cancel" formnovalidate><i class="las la-times"></i></button>
+                            <input type="hidden" asp-for="ShipperData.ID" value="@company.ID" form="editForm" />
+                        </text>
+                    }
+                    else
+                    {
+                        // View Mode
+                        <form method="post">
+                            <input type="hidden" asp-for="SelectedShipperId" value="@company.ID" />
+                            <button type="submit" title="Edit this shipper"><i class="las la-pencil-alt"></i></button>
+                            <button type="submit" title="Delete this shipper" onclick="return confirm('Are you sure you want to delete this shipper?');" asp-page-handler="Delete"><i class="lar la-trash-alt"></i></button>
+                        </form>
+                    }
+                </td>
+                <td>
+                    @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
+                    {
+                        <input type="text" form="editForm" asp-for="ShipperData.CompanyName" value="@company.CompanyName" />
+                    }
+                    else
+                    {
+                        @: @company.CompanyName
+                    }
+                </td>
+                <td>
+                    @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
+                    {
+                        <input type="text" form="editForm" asp-for="ShipperData.Phone" value="@company.Phone" />
+                    }
+                    else
+                    {
+                        @: @company.Phone
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
-    <tfoot>
-        <tr>
-            <td>
-                <i class="las la-plus"></i>
-                <i class="las la-times"></i>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tfoot>
+    @if (!Model.SelectedShipperId.HasValue)
+    {
+        <tfoot>
+            <tr>
+                <td>
+                    <text>
+                        <button type="submit" form="editForm" asp-page-handler="Insert"><i class="las la-plus"></i></button>
+                        <button type="submit" form="editForm" asp-page-handler="Cancel" formnovalidate><i class="las la-times"></i></button>
+                    </text>
+                </td>
+                <td>
+                    <input type="text" form="editForm" asp-for="ShipperData.CompanyName" placeholder="Company Name" />
+                </td>
+                <td>
+                    <input type="text" form="editForm" asp-for="ShipperData.Phone" placeholder="Phone (###) ###-####" />
+                </td>
+            </tr>
+        </tfoot>
+    }
 </table>
