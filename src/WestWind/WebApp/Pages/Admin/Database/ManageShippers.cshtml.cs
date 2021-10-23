@@ -24,6 +24,11 @@ namespace WebApp.Pages.Admin.Database
 
         [BindProperty(SupportsGet = true)]
         public int? SelectedShipperId { get; set; }
+        [BindProperty]
+        public Shipper ShipperData { get; set; }
+
+        [TempData]
+        public string TempFeedback { get; set; }
 
         public void OnGet()
         {
@@ -33,7 +38,20 @@ namespace WebApp.Pages.Admin.Database
         public IActionResult OnPost()
         {
             // This action handler will be for getting into an "edit mode"
+            TempFeedback = $"Edit mode for shipper {SelectedShipperId}.";
             return RedirectToPage(new { SelectedShipperId });
+        }
+
+        public IActionResult OnPostCancel()
+        {
+            TempFeedback = "Cancel operation.";
+            return RedirectToPage(new { SelectedShipperId = (int?)null });
+        }
+
+        public IActionResult OnPostUpdate()
+        {
+            TempFeedback = $"Updated shipper information for {ShipperData.ID} ({ShipperData.CompanyName} - {ShipperData.Phone}).";
+            return RedirectToPage(new { SelectedShipperId = ShipperData.ID });
         }
     }
 }

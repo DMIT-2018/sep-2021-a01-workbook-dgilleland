@@ -7,6 +7,10 @@
 
 <h1>Manage Shippers</h1>
 
+<form method="post" id="editForm"></form>
+
+<blockquote>@Model.TempFeedback</blockquote>
+
 <table>
     <thead>
         <tr>
@@ -24,8 +28,9 @@
                         {
                             // Edit Mode
                             <text>
-                                <i class="las la-check"></i>
-                                <i class="las la-times"></i>
+                                <button type="submit" form="editForm" asp-page-handler="Update"><i class="las la-check"></i></button>
+                                <button type="submit" form="editForm" asp-page-handler="Cancel"><i class="las la-times"></i></button>
+                                <input type="hidden" asp-for="ShipperData.ID" value="@company.ID" form="editForm" />
                             </text>
                         }
                         else
@@ -38,8 +43,26 @@
                             </form>
                         }
                     </td>
-                    <td>@company.CompanyName</td>
-                    <td>@company.Phone</td>
+                    <td>
+                        @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
+                        {
+                            <input type="text" form="editForm" asp-for="ShipperData.CompanyName" value="@company.CompanyName" />
+                        }
+                        else
+                        {
+                            @: @company.CompanyName
+                        }
+                    </td>
+                    <td>
+                        @if (Model.SelectedShipperId.HasValue && Model.SelectedShipperId.Value == company.ID)
+                        {
+                            <input type="text" form="editForm" asp-for="ShipperData.Phone" value="@company.Phone" />
+                        }
+                        else
+                        {
+                            @: @company.Phone
+                        }
+                    </td>
                 </tr>
             }
     </tbody>
