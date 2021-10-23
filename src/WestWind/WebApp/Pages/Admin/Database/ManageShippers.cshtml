@@ -19,10 +19,26 @@
         @foreach(var company in Model.CurrentShippers)
             {
                 <tr>
-                    <td></td>
+                    <td>
+                        <i class="las la-pencil-alt"></i>
+                        <i class="lar la-trash-alt"></i>
+                        ~
+                        <i class="las la-check"></i>
+                        <i class="las la-times"></i>
+                    </td>
                     <td>@company.CompanyName</td>
                     <td>@company.Phone</td>
                 </tr>
             }
     </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <i class="las la-plus"></i>
+                <i class="las la-times"></i>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>
