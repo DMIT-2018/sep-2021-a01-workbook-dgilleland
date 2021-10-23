@@ -22,9 +22,18 @@ namespace WebApp.Pages.Admin.Database
 
         public List<Shipper> CurrentShippers { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedShipperId { get; set; }
+
         public void OnGet()
         {
             CurrentShippers = _service.ListShippers();
+        }
+
+        public IActionResult OnPost()
+        {
+            // This action handler will be for getting into an "edit mode"
+            return RedirectToPage(new { SelectedShipperId });
         }
     }
 }
