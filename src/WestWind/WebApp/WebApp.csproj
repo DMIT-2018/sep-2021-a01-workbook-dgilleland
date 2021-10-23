@@ -17,4 +17,8 @@
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WestWind.App\WestWind.App.csproj" />
+  </ItemGroup>
+
 </Project>
