@@ -17,7 +17,11 @@
                 <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
                 <li>Admin
                     <ul>
-                        <li><a asp-area="" asp-page="/Admin/Database/ManageShippers">Manage Shippers</a></li>
+                        <li>
+                            <a asp-area="" 
+                               asp-page="/Admin/Database/ManageShippers" 
+                               asp-route-SelectedShipperId="">Manage Shippers</a>
+                        </li>
                     </ul>
                 </li>
                 <partial name="_LoginPartial" />
