@@ -51,6 +51,13 @@
     - Reverse-engineer Database
     - CRUD for **Shippers**
     - CRUD for **Categories** - *Research handling a file upload of an image for the category and saving it to the database. See [this page](https://docs.microsoft.com/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-small-files-with-buffered-model-binding-to-a-database)*
+- **Lesson 023** - Querying Data
+  - [ ] Query Student Data
+    - Show the students and their team assignments ([LinqPad Sample](../Sandbox/LinqPad/StudentAssignments.linq))
+    - Pagination
+      - My own [`Paginator` class](https://github.com/CPSC-1517/cpsc-1517-workbook-may-2021-dgilleland/blob/main/src/WestWind.Web/Helpers/Paginator.cs) (with [documentation](https://github.com/CPSC-1517/cpsc-1517-workbook-may-2021-dgilleland/blob/main/src/WestWind.Web/ReadMe.md#paginator-revamped))
+      - Microsoft's [Paging Demo](https://docs.microsoft.com/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-5.0#add-paging) for EF Core with Razor Pages
+      - ["Building pager tag helper" article](https://gunnarpeipman.com/aspnet-core-pager-tag-helper/) by *Gunnar Peipman* (Feb, 2018)
 
 > *NEXT Lessons*
 
@@ -62,6 +69,9 @@
     - Simple form - Drop-down with option group for territories by region to find your area sales reps
   - [ ] Our Products
     - Grouped by Category, w. Category picture
+
+      ![Product Catalog](./images/ProductCatalog.png)
+
   - [ ] Reports Menu
     - [ ] *Something needing a Table layout*
     - Pagination

@@ -56,3 +56,6 @@
   - WestWind - **Practice/Homework**
   - [12 minute Video](https://www.youtube.com/watch?v=qpH7-KFWZRI&list=PLWtPDlPVWF-9AmUZ49tWVtF3sF8guC5Xj&index=19) - **Prep Next Class**
 
+## Oct 25
+
+- **023** Queries and HTML Tables
