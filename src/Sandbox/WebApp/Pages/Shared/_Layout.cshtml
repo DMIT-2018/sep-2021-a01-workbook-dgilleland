@@ -14,7 +14,13 @@
             <ul>
                 <li><a asp-area="" asp-page="/Index">WebApp</a></li>
                 <li><a asp-area="" asp-page="/Index">Home</a></li>
-                <li><a asp-area="" asp-page="/Admin/ManageCapstoneStudents" asp-route-SelectedStudent="">Capstone Students</a></li>
+                <li>
+                    Capstone
+                    <ul>
+                        <li><a asp-area="" asp-page="/Admin/ManageCapstoneStudents" asp-route-SelectedStudent="">Capstone Students</a></li>
+                        <li><a asp-area="" asp-page="/ViewCapstoneStudents">View Capstone Students</a></li>
+                    </ul>
+                </li>
                 <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
                 <li><a asp-area="" asp-page="/About">About</a></li>
                 <li><a asp-area="" asp-page="/Contact">Contact Us</a></li>
