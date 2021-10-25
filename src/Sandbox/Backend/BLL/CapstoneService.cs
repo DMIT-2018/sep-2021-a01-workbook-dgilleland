@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Entities;
+using Backend.Models.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,32 @@ namespace Backend.BLL
         {
             _context = context;
         }
+        #endregion
+
+        #region A loose representation of CQRS - Command/Query Responsibility Segregation
+        #region Queries (reading the database)
+        public List<StudentAssignment> ListStudentAssignments()
+        {
+            var result = from person in _context.Students
+                         orderby person.LastName, person.FirstName, person.SchoolId
+                         select new StudentAssignment
+                         {
+                             LastName = person.LastName,
+                             FirstName = person.FirstName,
+                             Assignment = (from team in person.TeamAssignments
+                                           select new Team
+                                           {
+                                               Number = team.TeamNumber,
+                                               Client = team.Client.CompanyName,
+                                               IsConfirmed = team.Client.Confirmed
+                                           }).SingleOrDefault()
+                         };
+            return result.ToList();
+        }
+        #endregion
+
+        #region Commands (modifying the database)
+        #endregion
         #endregion
 
         #region CRUD behaviour for Student information

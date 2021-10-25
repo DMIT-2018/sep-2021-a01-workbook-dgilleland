@@ -2,12 +2,12 @@
   <Connection>
     <ID>a9163a36-c1b1-4d5a-976d-774314a6d45d</ID>
     <NamingServiceVersion>2</NamingServiceVersion>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>Capstone</Database>
   </Connection>
 </Query>
 
+// List all the students and their capstone assignments.
 from person in Students
 orderby person.LastName, person.FirstName, person.SchoolId
 select new // StudentAssignment
