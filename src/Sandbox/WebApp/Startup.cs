@@ -26,12 +26,13 @@ namespace WebApp
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // This method is where we "wire up" our dependencies between the various parts of our application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-
+                    Configuration.GetConnectionString("Capstone")));
+            
             services.AddBackendDependencies(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Capstone")));
