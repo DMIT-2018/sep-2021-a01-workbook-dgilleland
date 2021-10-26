@@ -1,0 +1,35 @@
+﻿@page
+@model WebApp.Pages.ViewCapstoneStudentsModel
+@{
+}
+
+<h1>Capstone Students</h1>
+
+<p>Students in Capstone will be assigned to specific teams that work with a client to deliver a specific software product.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Team</th>
+            <th>Client</th>
+            <th>Confirmed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.StudentAssignments)
+        {
+            var status = student.Assignment != null
+                       ? (student.Assignment.IsConfirmed ? "Confirmed" : "Temporary")
+                       : "Unassigned";
+            <tr>
+                <td>@student.FirstName @student.LastName</td>
+                <td>@student.Assignment?.Number</td>
+                <td>@student.Assignment?.Client</td>
+                <td>
+                    @status
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

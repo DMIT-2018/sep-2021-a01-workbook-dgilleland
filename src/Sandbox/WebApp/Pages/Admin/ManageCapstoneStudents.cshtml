@@ -1,0 +1,67 @@
+﻿@page "{SelectedStudent?}"
+@model WebApp.Pages.Admin.ManageCapstoneStudentsModel
+@{
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<h1>Manage Capstone Students</h1>
+@if (!Model.SelectedStudent.HasValue)
+{
+<form method="post">
+    <label>Lookup Student
+        <input asp-for="SelectedStudent" type="text" list="existing-students" placeholder="Partial first/last name"
+               onchange="this.form.submit()"/>
+        @*Having the onchange event handler (using JavaScript), I won't need the submit button to get student info*@
+        <datalist id="existing-students">
+            @foreach (var person in Model.AllStudents)
+            {
+                <option value="@person.StudentId">@person.FormalName</option>
+            }
+        </datalist>
+    </label>
+    <button type="submit">Get Student Information</button>
+</form>
+}
+<p>
+    @Model.ErrorMessage
+    @Model.FeedbackMessage
+</p>
+
+<form method="post">
+    @if (Model.SelectedStudent.HasValue)
+    {
+        <button type="submit" asp-page-handler="Add" disabled>Add</button>
+        <button type="submit" asp-page-handler="Update">Update</button>
+        <button type="submit" asp-page-handler="Delete">Delete</button>
+        <button type="submit" asp-page-handler="Clear" formnovalidate>Clear</button>
+    }
+    else
+    {
+        <button type="submit" asp-page-handler="Add">Add</button>
+        <button type="submit" asp-page-handler="Update" disabled>Update</button>
+        <button type="submit" asp-page-handler="Delete" disabled>Delete</button>
+        <button type="submit" asp-page-handler="Clear" formnovalidate>Clear</button>
+    }
+    <input type="hidden" asp-for="SelectedStudent" />
+
+    <label>
+        School ID
+        <input asp-for="CurrentStudent.ID" placeholder="School ID" />
+        <span asp-validation-for="CurrentStudent.ID"></span>
+    </label>
+
+    <label>
+        First Name
+        <input asp-for="CurrentStudent.FirstName" placeholder="Student First Name" />
+        <span asp-validation-for="CurrentStudent.FirstName"></span>
+    </label>
+
+    <label>
+        LastName
+        <input asp-for="CurrentStudent.LastName" placeholder="Student Last Name" />
+        <span asp-validation-for="CurrentStudent.LastName"></span>
+    </label>
+</form>
