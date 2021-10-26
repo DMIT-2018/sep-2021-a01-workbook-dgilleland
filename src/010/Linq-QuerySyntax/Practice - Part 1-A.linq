@@ -14,3 +14,6 @@
 </Query>
 
 //A) List all the customer company names for those with more than 5 orders.
+from company in Customers
+where company.Orders.Count > 5
+select company.CompanyName
