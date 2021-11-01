@@ -19,8 +19,9 @@ namespace Backend.BLL
 
         #region A loose representation of CQRS - Command/Query Responsibility Segregation
         #region Queries (reading the database)
-        public List<StudentAssignment> ListStudentAssignments()
+        public List<StudentAssignment> ListStudentAssignments(int pageNumber, int pageSize, out int totalRows)
         {
+            totalRows = _context.Students.Count();
             var result = from person in _context.Students
                          orderby person.LastName, person.FirstName, person.SchoolId
                          select new StudentAssignment
@@ -35,7 +36,10 @@ namespace Backend.BLL
                                                IsConfirmed = team.Client.Confirmed
                                            }).SingleOrDefault()
                          };
-            return result.ToList();
+            // Limit how much data I'm getting back from the database
+            int skipRows = (pageNumber - 1) * pageSize; // page 1 = skip 0 rows, page 2 = skip pageSize
+            return result.Skip(skipRows).Take(pageSize).ToList();
+            // Offset ->  rows ommitted, # rows we want
         }
         #endregion
 

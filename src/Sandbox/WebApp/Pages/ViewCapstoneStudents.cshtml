@@ -32,4 +32,24 @@
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr colspan="4">
+            <td>
+                @{
+                    foreach (var pageRef in Model.Paging)
+                    {
+                        if (pageRef == Model.Paging.CurrentPage) // I can use the == because of PageRef type being a C# 9 record type
+                        {
+                            <b>@pageRef.Text</b>
+                        }
+                        else
+                        {
+                            <a title="Page @pageRef.Page" asp-page="/ViewCapstoneStudents" asp-route-currentpage="@pageRef.Page">@pageRef.Text</a>
+                        }
+                    }
+                }
+                (@Model.Paging.TotalItemCount items - Page x/@Model.Paging.PageCount)
+            </td>
+        </tr>
+    </tfoot>
 </table>
