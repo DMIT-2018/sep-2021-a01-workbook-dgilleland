@@ -41,6 +41,18 @@ namespace Backend.BLL
             return result.Skip(skipRows).Take(pageSize).ToList();
             // Offset ->  rows ommitted, # rows we want
         }
+
+        public List<ClientInfo> ListConfirmedClients()
+        {
+            var result = from company in _context.CapstoneClients
+                         where company.Confirmed
+                         select new ClientInfo
+                         {
+                             ClientId = company.Id,
+                             Company = company.CompanyName
+                         };
+            return result.ToList();
+        }
         #endregion
 
         #region Commands (modifying the database)
