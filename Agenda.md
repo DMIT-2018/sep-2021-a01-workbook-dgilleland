@@ -3,7 +3,7 @@
 <!-- ## Sep 27
 
 - LINQ Method Syntax
-- Aggregate Methods with LINQ
+- Aggregate Methods with LINQ -->
 
 ## W04-D2
 
