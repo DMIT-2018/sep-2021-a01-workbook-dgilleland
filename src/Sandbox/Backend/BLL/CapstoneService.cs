@@ -53,6 +53,19 @@ namespace Backend.BLL
                          };
             return result.ToList();
         }
+
+        public List<StudentTeamAssignment> ListTeamAssignments()
+        {
+            var result = from person in _context.Students
+                         select new StudentTeamAssignment
+                         {
+                             StudentId = person.StudentId,
+                             FullName = $"{person.FirstName} {person.LastName}",
+                             ClientId = person.TeamAssignments.Any() ? person.TeamAssignments.First().ClientId : null,
+                             TeamLetter = person.TeamAssignments.Any() ? person.TeamAssignments.First().TeamNumber : null
+                         };
+            return result.ToList();
+        }
         #endregion
 
         #region Commands (modifying the database)
