@@ -46,6 +46,7 @@ namespace Backend.BLL
         {
             var result = from company in _context.CapstoneClients
                          where company.Confirmed
+                         orderby company.CompanyName
                          select new ClientInfo
                          {
                              ClientId = company.Id,
@@ -57,6 +58,7 @@ namespace Backend.BLL
         public List<StudentTeamAssignment> ListTeamAssignments()
         {
             var result = from person in _context.Students
+                         orderby person.FirstName, person.LastName
                          select new StudentTeamAssignment
                          {
                              StudentId = person.StudentId,
@@ -69,6 +71,38 @@ namespace Backend.BLL
         #endregion
 
         #region Commands (modifying the database)
+        public void ModifyTeamAssignments(List<StudentTeamAssignment> assignments)
+        {
+            // TEST: Write an automation test
+            // 0) Validation
+            //   a - Make sure we have data
+            if (assignments is null || assignments.Count == 0)
+                throw new ArgumentNullException(nameof(assignments), "You must supply student assignments to modify the current teas rosters");
+            //   b - Enforce the business rules
+
+            var teams = assignments.GroupBy(member => new { member.ClientId, member.TeamLetter });
+            //     - (xtra) No teams with a null client and a team letter ??
+            if (teams.Any(team => !team.Key.ClientId.HasValue && !string.IsNullOrWhiteSpace(team.Key.TeamLetter)))
+                throw new Exception("At least one student is assigned a team letter without a client");
+            //     - (1) The smallest team size is four students
+            if (teams.Where(team => team.Key.ClientId.HasValue)
+                // filter out the "no-client" group, so that I only regard students that are assigned to a client
+                // (4 or less unassigned students is ok)
+                .Any(team => team.Count() < 4))
+                // check the team is not too small
+                throw new Exception("You cannot have any team with less than 4 students");
+
+            //     - (2) The largest team size is seven students
+            if (teams.Where(team => team.Key.ClientId.HasValue)
+                // filter out the "no-client" group, so that I only regard students that are assigned to a client
+                // (4 or less unassigned students is ok)
+                .Any(team => team.Count() > 7))
+                // check the team is not too large
+                throw new Exception("You cannot have any team with more than 7 students");
+
+            //     - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
+            //     - (4) Only assign students to clients that have been confirmed as participating.
+        }
         #endregion
         #endregion
 
