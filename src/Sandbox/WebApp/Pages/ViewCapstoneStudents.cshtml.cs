@@ -26,13 +26,16 @@ namespace WebApp.Pages
         public Paginator Paging { get; set; }
         public int TotalCount { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string PartialStudentName { get; set; }
+
         public void OnGet(int? currentPage)
         {
             int pageNumber = currentPage.HasValue ? currentPage.Value : 1;
             // call your service to get the data & the total count
             PageState current = new(pageNumber, PAGE_SIZE);
             int total;
-            StudentAssignments = _service.ListStudentAssignments(pageNumber, PAGE_SIZE, out total);
+            StudentAssignments = _service.ListStudentAssignments(PartialStudentName, pageNumber, PAGE_SIZE, out total);
             TotalCount = total;
             Paging = new(TotalCount, current);
         }

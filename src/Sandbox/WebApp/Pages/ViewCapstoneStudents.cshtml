@@ -7,6 +7,16 @@
 
 <p>Students in Capstone will be assigned to specific teams that work with a client to deliver a specific software product.</p>
 
+<blockquote>
+    <form method="get">
+        <label>
+            Partial Student Name
+            <input type="text" asp-for="PartialStudentName" placeholder="leave blank for all students" />
+        </label>
+        <button type="submit">Filter</button>
+    </form>
+</blockquote>
+
 <table>
     <thead>
         <tr>
@@ -44,7 +54,10 @@
                         }
                         else
                         {
-                            <a title="Page @pageRef.Page" asp-page="/ViewCapstoneStudents" asp-route-currentpage="@pageRef.Page">@pageRef.Text</a>
+                            <a title="Page @pageRef.Page"
+                               asp-page="/ViewCapstoneStudents"
+                               asp-route-currentpage="@pageRef.Page"
+                               asp-route-PartialStudentName="@Model.PartialStudentName">@pageRef.Text</a>
                         }
                     }
                 }
