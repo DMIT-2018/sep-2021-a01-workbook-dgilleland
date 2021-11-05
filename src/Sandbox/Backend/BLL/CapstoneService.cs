@@ -75,37 +75,64 @@ namespace Backend.BLL
         #endregion
 
         #region Commands (modifying the database)
-        public void ModifyTeamAssignments(List<StudentTeamAssignment> assignments)
+        #region Private helper methods & types
+        private void CheckForTeamLetterWithoutClient(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
         {
-            // TEST: Write an automation test
-            // 0) Validation
-            //   a - Make sure we have data
-            if (assignments is null || assignments.Count == 0)
-                throw new ArgumentNullException(nameof(assignments), "You must supply student assignments to modify the current teas rosters");
-            //   b - Enforce the business rules
-
-            var teams = assignments.GroupBy(member => new { member.ClientId, member.TeamLetter });
             //     - (xtra) No teams with a null client and a team letter ??
             if (teams.Any(team => !team.Key.ClientId.HasValue && !string.IsNullOrWhiteSpace(team.Key.TeamLetter)))
-                throw new Exception("At least one student is assigned a team letter without a client");
-            //     - (1) The smallest team size is four students
-            if (teams.Where(team => team.Key.ClientId.HasValue)
-                // filter out the "no-client" group, so that I only regard students that are assigned to a client
-                // (4 or less unassigned students is ok)
-                .Any(team => team.Count() < 4))
-                // check the team is not too small
-                throw new Exception("You cannot have any team with less than 4 students");
+                errors.Add( new Exception("At least one student is assigned a team letter without a client"));
+        }
 
+        private static void CheckMaximumTeamSize(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        {
             //     - (2) The largest team size is seven students
             if (teams.Where(team => team.Key.ClientId.HasValue)
                 // filter out the "no-client" group, so that I only regard students that are assigned to a client
                 // (4 or less unassigned students is ok)
                 .Any(team => team.Count() > 7))
                 // check the team is not too large
-                throw new Exception("You cannot have any team with more than 7 students");
+                errors.Add(new Exception("You cannot have any team with more than 7 students"));
+        }
+
+        private static void CheckMinimumTeamSize(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        {
+            //     - (1) The smallest team size is four students
+            if (teams.Where(team => team.Key.ClientId.HasValue)
+                // filter out the "no-client" group, so that I only regard students that are assigned to a client
+                // (4 or less unassigned students is ok)
+                .Any(team => team.Count() < 4))
+                // check the team is not too small
+                errors.Add(new Exception("You cannot have any team with less than 4 students"));
+        }
+
+        private record GroupingKey(int? ClientId, string TeamLetter)
+        { public GroupingKey() : this(null, null) { } }
+        #endregion
+
+        public void ModifyTeamAssignments(List<StudentTeamAssignment> assignments)
+        {
+            // TEST: Write an automation test
+            // 0) Validation
+            //   a - Make sure we have data - This is a "full-stop" exception
+            if (assignments is null || assignments.Count == 0)
+                throw new ArgumentNullException(nameof(assignments), "You must supply student assignments to modify the current teas rosters");
+
+
+            //   b - Enforce the business rules - Distinct problems with the data - Gather the problems as a "set" of exceptions
+            List<Exception> errors = new(); // Create an empty list of problems with the data
+            IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams
+                = assignments.GroupBy(member => new GroupingKey { ClientId = member.ClientId, TeamLetter = member.TeamLetter });
+
+            CheckForTeamLetterWithoutClient(errors, teams);
+
+            CheckMinimumTeamSize(errors, teams);
+
+            CheckMaximumTeamSize(errors, teams);
 
             //     - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
             //     - (4) Only assign students to clients that have been confirmed as participating.
+            if (errors.Any()) // Are there any business rule violations?
+                throw new AggregateException("The following business rules were violated:", errors);
         }
         #endregion
         #endregion
