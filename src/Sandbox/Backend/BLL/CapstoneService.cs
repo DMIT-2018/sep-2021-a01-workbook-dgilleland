@@ -105,6 +105,17 @@ namespace Backend.BLL
                 errors.Add(new Exception("You cannot have any team with less than 4 students"));
         }
 
+        void CheckTeamLetters(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        {
+            // TODO: - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
+        }
+
+        void CheckClientsAreConfirmed(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        {
+            // TODO: - (4) Only assign students to clients that have been confirmed as participating.
+
+        }
+
         private record GroupingKey(int? ClientId, string TeamLetter)
         { public GroupingKey() : this(null, null) { } }
         #endregion
@@ -124,15 +135,26 @@ namespace Backend.BLL
                 = assignments.GroupBy(member => new GroupingKey { ClientId = member.ClientId, TeamLetter = member.TeamLetter });
 
             CheckForTeamLetterWithoutClient(errors, teams);
-
             CheckMinimumTeamSize(errors, teams);
-
             CheckMaximumTeamSize(errors, teams);
+            CheckTeamLetters(errors, teams);
+            CheckClientsAreConfirmed(errors, teams);
 
-            //     - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
-            //     - (4) Only assign students to clients that have been confirmed as participating.
             if (errors.Any()) // Are there any business rule violations?
                 throw new AggregateException("The following business rules were violated:", errors);
+
+            // 1) Process the team assignments as a SINGLE TRANSACTION
+            //    - The list of StudentTeamAssignments represents the current assignment for each student.
+            //    - Since this may be a change in an assigned client or team letter, we need to think about
+            //      how this affect the database tables in terms of Inserts/Updates/Deletes
+            foreach(var change in assignments)
+            {
+
+            }
+
+
+            // ... after all our processing of the data, we do a SINGLE CALL to .SaveChanges()
+            _context.SaveChanges();
         }
         #endregion
         #endregion
