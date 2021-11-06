@@ -3,7 +3,7 @@
 <!-- ## Sep 27
 
 - LINQ Method Syntax
-- Aggregate Methods with LINQ -->
+- Aggregate Methods with LINQ
 
 ## W04-D2
 
@@ -47,8 +47,6 @@
   - Web Server type, content path & application path
     - Upload a File (`Resume`)
 
--->
-
 ## Oct 18/20/22 - Lesson 020 Series
 
 - **022** CRUD with Internal Entities
@@ -59,3 +57,10 @@
 ## Oct 25
 
 - **023** Queries and HTML Tables
+
+-->
+
+## Nove 1
+
+- **024** Bulk Editing
+

@@ -58,6 +58,17 @@
       - My own [`Paginator` class](https://github.com/CPSC-1517/cpsc-1517-workbook-may-2021-dgilleland/blob/main/src/WestWind.Web/Helpers/Paginator.cs) (with [documentation](https://github.com/CPSC-1517/cpsc-1517-workbook-may-2021-dgilleland/blob/main/src/WestWind.Web/ReadMe.md#paginator-revamped))
       - Microsoft's [Paging Demo](https://docs.microsoft.com/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-5.0#add-paging) for EF Core with Razor Pages
       - ["Building pager tag helper" article](https://gunnarpeipman.com/aspnet-core-pager-tag-helper/) by *Gunnar Peipman* (Feb, 2018)
+- **Lesson 024** - Bulk Editing
+  - [ ] **Activity:** Create a page called "AssignTeams" that will allow for the bulk-editing of the Capstone students' placement on a given team. (see the [Capstone ReadMe](./Mockups/ReadMe.md#business-rules))
+  - [ ] **Discussion Points**
+    - *(Technical)*
+      - Model Binding a collection in Razor Pages
+      - BLL Processing of Business Rules
+      - BLL "Transactional Processing" - ensuring a **single** transaction
+    - *(Design Decisions)*
+      - Bulk Updates vs Single Updates
+      - When to "bulk update"
+      - Bulk Update Challenges re: Insert/Update/Delete
 
 > *NEXT Lessons*
 

@@ -6,6 +6,7 @@ using Backend.BLL;
 using Backend.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApp.Helpers;
 
 namespace WebApp.Pages
 {
@@ -21,9 +22,22 @@ namespace WebApp.Pages
 
         public IEnumerable<StudentAssignment> StudentAssignments { get; set; }
 
-        public void OnGet()
+        private const int PAGE_SIZE = 8;
+        public Paginator Paging { get; set; }
+        public int TotalCount { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string PartialStudentName { get; set; }
+
+        public void OnGet(int? currentPage)
         {
-            StudentAssignments = _service.ListStudentAssignments();
+            int pageNumber = currentPage.HasValue ? currentPage.Value : 1;
+            // call your service to get the data & the total count
+            PageState current = new(pageNumber, PAGE_SIZE);
+            int total;
+            StudentAssignments = _service.ListStudentAssignments(PartialStudentName, pageNumber, PAGE_SIZE, out total);
+            TotalCount = total;
+            Paging = new(TotalCount, current);
         }
     }
 }

@@ -1,6 +1,8 @@
 # Capstone 2019
 
-Create an app that allows setting up teams for Capstone 2019. Use the accompanying database script to create the database, and build a form to build-edit the creation of the teams.
+Create an app that allows setting up teams for Capstone 2019. Use the accompanying database project to create the database, and build a form to bulk-edit the creation of the teams.
+
+![ERD](./Capstone_2019_ERD.png)
 
 ## Business Rules
 
@@ -11,9 +13,7 @@ Create an app that allows setting up teams for Capstone 2019. Use the accompanyi
 
 ![Bulk Edit Form](./Capstone_2019.png)
 
-![ERD](./Capstone_2019_ERD.png)
-
-## Query Models
+The following `ClientInfo` record type is focused on identifying clients in a drop-down (i.e.: `<select>`). It fulfills a *query* responsibility.
 
 ```cs
 public record ClientInfo(int ClientId, string Company)
@@ -22,15 +22,10 @@ public record ClientInfo(int ClientId, string Company)
 }
 ```
 
-```cs
-public record StudentInfo(int StudentId, string FullName);
-{
-    public StudentInfo() : this(0, null) {}
-}
-```
+The following `StudentAssignment` record type serves to fulfill a *query* and a *command* responsibility. Technically, the only portions needed for a command are the `StudentId`, `ClientId` and `TeamLetter` portions, but creating a separate record type when the only difference is the `FullName` is unnecessary.
 
 ```cs
-public record StudentAssignment(int ClientId, int StudentId, string TeamLetter)
+public record StudentAssignment(int StudentId, string FullName, int? ClientId, string TeamLetter)
 {
     public StudentAssignment() : this(0, 0, null) {}
 }

@@ -1,0 +1,39 @@
+﻿@page
+@model WebApp.Pages.Admin.AssignTeamsModel
+@{
+}
+
+<h1>Capstone Teams</h1>
+
+<blockquote>@Model.ErrorMessage @Model.Feedback</blockquote>
+
+<form method="post">
+    <table>
+        @foreach (var assignment in Model.Students)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" name="Students.Index" value="@assignment.StudentId" />
+                    <input type="hidden" name="Students[@assignment.StudentId].StudentId" value="@assignment.StudentId" />
+                    <input type="hidden" name="Students[@assignment.StudentId].FullName" value="@assignment.FullName" />
+                    @assignment.FullName
+                </td>
+                <td>
+                    <select name="Students[@assignment.StudentId].ClientId">
+                        <option value="">[Select a Client]</option>
+                        @foreach (var company in Model.Clients)
+                        {
+                            <option value="@company.ClientId" selected="@(assignment.ClientId == company.ClientId)">@company.Company</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="Students[@assignment.StudentId].TeamLetter" value="@assignment.TeamLetter" />
+                </td>
+            </tr>
+        }
+    </table>
+    
+    <button type="submit">Save</button>
+    <button type="reset">Reset</button>
+</form>
