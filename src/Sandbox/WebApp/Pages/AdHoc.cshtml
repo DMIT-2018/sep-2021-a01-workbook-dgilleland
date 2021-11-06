@@ -1,0 +1,77 @@
+﻿@page "{ClientId?}"
+@model WebApp.Pages.AdHocModel
+@{
+}
+
+<style>
+    main {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+    }
+    main > h1, main > p {
+        grid-column: span 2;
+    }
+</style>
+
+<h1>Ad-Hoc</h1>
+
+<p>A place for some random ideas and demonstrations.</p>
+
+<section>
+    <h3>Client Listing</h3>
+
+    <table>
+        <tr>
+            <th>Confirmed</th>
+            <th>Company Name</th>
+        </tr>
+        @foreach(var company in Model.Companies)
+            {
+                <tr>
+                    <td>
+                        @*@(company.Confirmed ? "Yes" : "")*@
+                        <input type="checkbox" checked="@company.Confirmed" />
+                    </td>
+                    <td>
+                        <a asp-area="" asp-page="/AdHoc" asp-route-ClientId="@company.Id">@company.CompanyName</a>
+                    </td>
+                </tr>
+            }
+    </table>
+</section>
+
+<section>
+    <h3>Details</h3>
+    @if (Model.Client != null)
+    {
+        <blockquote>
+            The Client ID is @Model.Client.Id.
+            @(Model.Client.Confirmed ? "Welcome Aboard!" : "Registration Pending")
+        </blockquote>
+    }
+
+    <form method="post">
+        <label>
+            Company Name
+            <input asp-for="Client.CompanyName" />
+        </label>
+        <label>
+            Slogan
+            <input asp-for="Client.Slogan" />
+        </label>
+        <label style="display: block;">
+            Confirmation Status
+            <br />
+            <input asp-for="Client.Confirmed" /> Is Confirmed
+        </label>
+        <label>
+            Contact Name
+            <input asp-for="Client.ContactName" />
+        </label>
+
+        <button asp-page-handler="Add">Add</button>
+        <button asp-page-handler="Update">Update</button>
+        <button asp-page-handler="Delete">Delete</button>
+        <button asp-page-handler="ClearForm">Clear Form</button>
+    </form>
+</section>
