@@ -76,9 +76,15 @@ namespace Backend.BLL
 
         #region Commands (modifying the database)
         #region Private helper methods & types
-        void CheckForDuplicateStudents(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        void CheckForDuplicateStudents(List<Exception> errors, List<StudentTeamAssignment> assignments)
         {
-            // TODO: Add this extra validation for duplicate students
+            var duplicates = assignments.GroupBy(x => x.StudentId).Where(x => x.Count() > 1);
+            if (duplicates.Any())
+                foreach (var person in duplicates)
+                {
+                    var student = _context.Students.Find(person.Key);
+                    errors.Add(new Exception($"The student {student.FirstName} {student.LastName} has been duplicated"));
+                }
         }
 
         private void CheckForTeamLetterWithoutClient(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
@@ -139,7 +145,7 @@ namespace Backend.BLL
             IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams
                 = assignments.GroupBy(member => new GroupingKey { ClientId = member.ClientId, TeamLetter = member.TeamLetter });
 
-            CheckForDuplicateStudents(errors, teams);
+            CheckForDuplicateStudents(errors, assignments);
             CheckForTeamLetterWithoutClient(errors, teams);
             CheckMinimumTeamSize(errors, teams);
             CheckMaximumTeamSize(errors, teams);
@@ -172,7 +178,28 @@ namespace Backend.BLL
                 else
                 {
                     // Determine if the client has changed (result in a delete followed by an insert)
+                    if(existing.ClientId != change.ClientId)
+                    {
+                        // Remove that team assignment
+                        _context.TeamAssignments.Remove(existing);
+                        if (change.ClientId.HasValue) // as long as the student is assigned to a client
+                        {
+                            _context.TeamAssignments.Add(new TeamAssignment
+                            {
+                                StudentId = change.StudentId,
+                                ClientId = change.ClientId.Value,
+                                TeamNumber = change.TeamLetter
+                            });
+                        }
+                    }
                     // or if the client is the same and the team letter has changed (result in an update)
+                    else // the client ids match
+                    {
+                        if(existing.TeamNumber != change.TeamLetter)
+                        {
+                            existing.TeamNumber = change.TeamLetter;
+                        }
+                    }
                 }
             }
 
