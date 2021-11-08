@@ -76,6 +76,11 @@ namespace Backend.BLL
 
         #region Commands (modifying the database)
         #region Private helper methods & types
+        void CheckForDuplicateStudents(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
+        {
+            // TODO: Add this extra validation for duplicate students
+        }
+
         private void CheckForTeamLetterWithoutClient(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
         {
             //     - (xtra) No teams with a null client and a team letter ??
@@ -134,6 +139,7 @@ namespace Backend.BLL
             IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams
                 = assignments.GroupBy(member => new GroupingKey { ClientId = member.ClientId, TeamLetter = member.TeamLetter });
 
+            CheckForDuplicateStudents(errors, teams);
             CheckForTeamLetterWithoutClient(errors, teams);
             CheckMinimumTeamSize(errors, teams);
             CheckMaximumTeamSize(errors, teams);
@@ -149,7 +155,25 @@ namespace Backend.BLL
             //      how this affect the database tables in terms of Inserts/Updates/Deletes
             foreach(var change in assignments)
             {
-
+                var existing = _context.TeamAssignments.SingleOrDefault(x => x.StudentId == change.StudentId);
+                if(existing is null)
+                {
+                    // We only have to add this student
+                    if (change.ClientId.HasValue) // as long as the student is assigned to a client
+                    {
+                        _context.TeamAssignments.Add(new TeamAssignment
+                        {
+                            StudentId = change.StudentId,
+                            ClientId = change.ClientId.Value,
+                            TeamNumber = change.TeamLetter
+                        });
+                    }
+                }
+                else
+                {
+                    // Determine if the client has changed (result in a delete followed by an insert)
+                    // or if the client is the same and the team letter has changed (result in an update)
+                }
             }
 
 
