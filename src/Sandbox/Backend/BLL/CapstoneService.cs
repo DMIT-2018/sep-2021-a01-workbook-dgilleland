@@ -119,6 +119,7 @@ namespace Backend.BLL
         void CheckTeamLetters(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
         {
             // TODO: - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
+            const string Letters = "ABCDEFG"; // that should be enough....
         }
 
         void CheckClientsAreConfirmed(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
@@ -143,7 +144,10 @@ namespace Backend.BLL
             //   b - Enforce the business rules - Distinct problems with the data - Gather the problems as a "set" of exceptions
             List<Exception> errors = new(); // Create an empty list of problems with the data
             IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams
-                = assignments.GroupBy(member => new GroupingKey { ClientId = member.ClientId, TeamLetter = member.TeamLetter });
+                = assignments.GroupBy(member => new GroupingKey 
+                                { ClientId = member.ClientId, TeamLetter = member.TeamLetter })
+                             .OrderBy(group => group.Key.ClientId)
+                             .ThenBy(group => group.Key.TeamLetter);
 
             CheckForDuplicateStudents(errors, assignments);
             CheckForTeamLetterWithoutClient(errors, teams);
