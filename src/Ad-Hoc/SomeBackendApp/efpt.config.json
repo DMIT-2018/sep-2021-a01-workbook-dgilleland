@@ -1,0 +1,41 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "DemoblogContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "DAL",
+   "OutputPath": "Entities",
+   "ProjectRootNamespace": "SomeBackendApp",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Blogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Posts]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "DESKTOP-ALFN7KI.DemoBlog",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}

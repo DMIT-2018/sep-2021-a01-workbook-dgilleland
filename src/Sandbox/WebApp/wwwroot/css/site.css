@@ -11,3 +11,7 @@ footer {
     font-weight: bold;
     color: firebrick;
 }
+
+label br {
+    display: block;
+}

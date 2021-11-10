@@ -19,6 +19,21 @@ namespace Backend.BLL
 
         #region A loose representation of CQRS - Command/Query Responsibility Segregation
         #region Queries (reading the database)
+        public List<Models.CapstoneClient> ListClients()
+        {
+            var result = from company in _context.CapstoneClients
+                         orderby company.CompanyName
+                         select new Models.CapstoneClient
+                         {
+                             Id = company.Id,
+                             CompanyName = company.CompanyName,
+                             Slogan = company.Slogan,
+                             ContactName = company.ContactName,
+                             Confirmed = company.Confirmed
+                         };
+            return result.ToList();
+        }
+
         public List<StudentAssignment> ListStudentAssignments(string partialStudentName, int pageNumber, int pageSize, out int totalRows)
         {
             var result = from person in _context.Students
@@ -281,6 +296,21 @@ namespace Backend.BLL
                 throw new ArgumentException("Could not find the specified student", nameof(studentId));
             _context.Students.Remove(existing);
             _context.SaveChanges();
+        }
+        public Models.CapstoneClient LookupClient(int clientId)
+        {
+            Models.CapstoneClient result = null;
+            var found = _context.CapstoneClients.Find(clientId);
+            if (found != null)
+                result = new Models.CapstoneClient
+                {
+                    Id = found.Id,
+                    CompanyName = found.CompanyName,
+                    Slogan = found.Slogan,
+                    ContactName = found.ContactName,
+                    Confirmed = found.Confirmed
+                };
+            return result;
         }
         #endregion
     }
