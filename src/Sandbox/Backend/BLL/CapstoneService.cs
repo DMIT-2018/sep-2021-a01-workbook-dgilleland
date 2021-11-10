@@ -164,7 +164,14 @@ namespace Backend.BLL
         void CheckClientsAreConfirmed(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
         {
             // TODO: - (4) Only assign students to clients that have been confirmed as participating.
-
+            foreach(var team in teams)
+            {
+                var found = _context.CapstoneClients.Find(team.Key.ClientId);
+                if (found == null)
+                    errors.Add(new Exception($"The client with an id of {team.Key.ClientId} does not exist"));
+                else if (!found.Confirmed)
+                    errors.Add(new Exception($"The client {found.CompanyName} has not been confirmed for this semester"));
+            }
         }
 
         private record GroupingKey(int? ClientId, string TeamLetter)
