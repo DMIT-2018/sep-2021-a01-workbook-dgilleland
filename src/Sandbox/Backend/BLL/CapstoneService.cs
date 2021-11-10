@@ -135,6 +135,30 @@ namespace Backend.BLL
         {
             // TODO: - (3) Clients with more than seven students must be broken into separate teams, each with a team letter(starting with 'A').
             const string Letters = "ABCDEFG"; // that should be enough....
+            var unassigned = new GroupingKey();
+            var shortlist = teams.Where(team => team.Key != unassigned);
+            if (shortlist.Any(x => string.IsNullOrWhiteSpace(x.Key.TeamLetter)))
+                errors.Add(new Exception("One or more team groups exist without an assigned team letter"));
+
+            GroupingKey lastTeam = null;
+            int teamLetterIndex = 0;
+            foreach(var team in shortlist)
+            {
+                // Prep values used for testing expectations
+                if(lastTeam == null)
+                    lastTeam = team.Key;
+                if (lastTeam.ClientId != team.Key.ClientId)
+                    teamLetterIndex = 0;
+                // Do the validation
+                if (team.Key.TeamLetter != Letters[teamLetterIndex].ToString())
+                    errors.Add(new Exception($"Client {team.Key.ClientId} has a team letter of '{team.Key.TeamLetter}', but a team letter of '{Letters[teamLetterIndex]}' was expected."));
+                // TODO: Check with the end user if they need to see which teams have more than 7 members, or if the CheckMaximumTeamSize() is enough
+                if (team.Count() > 7)
+                    errors.Add(new Exception($"The team {team.Key} has {team.Count()} members, but the max team size is {7}"));
+                // Prep for next time around the loop
+                teamLetterIndex++;
+                lastTeam = team.Key;
+            }
         }
 
         void CheckClientsAreConfirmed(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
