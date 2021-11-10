@@ -164,7 +164,9 @@ namespace Backend.BLL
         void CheckClientsAreConfirmed(List<Exception> errors, IEnumerable<IGrouping<GroupingKey, StudentTeamAssignment>> teams)
         {
             // TODO: - (4) Only assign students to clients that have been confirmed as participating.
-            foreach(var team in teams)
+            var unassigned = new GroupingKey();
+            var shortlist = teams.Where(team => team.Key != unassigned);
+            foreach (var team in shortlist)
             {
                 var found = _context.CapstoneClients.Find(team.Key.ClientId);
                 if (found == null)
