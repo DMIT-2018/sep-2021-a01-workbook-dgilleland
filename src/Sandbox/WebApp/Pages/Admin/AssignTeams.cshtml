@@ -5,7 +5,27 @@
 
 <h1>Capstone Teams</h1>
 
-<blockquote>@Model.ErrorMessage @Model.Feedback</blockquote>
+@{
+    // I want to distinguish error messages from other feedback
+    if(!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <blockquote>
+            @Model.ErrorMessage
+            <ul>
+            @foreach(var detail in Model.ErrorDetails)
+            {
+                <li>@detail</li>
+            }
+            </ul>
+        </blockquote>
+    }
+    if(!string.IsNullOrWhiteSpace(Model.Feedback))
+    {
+        <blockquote>
+            @Model.Feedback
+        </blockquote>
+    }
+}
 
 <form method="post">
     <table>

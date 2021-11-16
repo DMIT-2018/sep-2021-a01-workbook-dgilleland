@@ -25,6 +25,7 @@ namespace WebApp.Pages.Admin
         [TempData] // Is stored in a temporary "cookie" on the page as part of the HTTPResponse
         public string Feedback { get; set; }
         public string ErrorMessage { get; set; }
+        public List<string> ErrorDetails { get; set; } = new(); // Empty list
 
         public void OnGet()
         {
@@ -41,6 +42,14 @@ namespace WebApp.Pages.Admin
                 // TODO: Do a Post-Redirect-Get
                 Feedback = "Students assigned to teams.";
                 return RedirectToPage(); // Redirect to the current page
+            }
+            catch (AggregateException ex)
+            {
+                Clients = _service.ListConfirmedClients(); // for the drop-downs
+                ErrorMessage = "A number of errors were encountered:";
+                foreach(var detail in ex.InnerExceptions) // notice the plural
+                    ErrorDetails.Add(detail.Message);
+                return Page();
             }
             catch (Exception ex)
             {
