@@ -60,7 +60,7 @@
 
 -->
 
-## Nove 1
+## Nov 1
 
 - **024** Bulk Editing
 
