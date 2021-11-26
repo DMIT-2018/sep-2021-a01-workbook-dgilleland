@@ -13,6 +13,7 @@ namespace Backend.Entities
     {
         public CapstoneClient()
         {
+            CapstoneProjects = new HashSet<CapstoneProject>();
             TeamAssignments = new HashSet<TeamAssignment>();
         }
 
@@ -25,6 +26,8 @@ namespace Backend.Entities
         public string ContactName { get; set; }
         public bool Confirmed { get; set; }
 
+        [InverseProperty(nameof(CapstoneProject.CapstoneClient))]
+        public virtual ICollection<CapstoneProject> CapstoneProjects { get; set; }
         [InverseProperty(nameof(TeamAssignment.Client))]
         public virtual ICollection<TeamAssignment> TeamAssignments { get; set; }
     }

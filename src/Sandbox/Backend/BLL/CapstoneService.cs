@@ -19,6 +19,18 @@ namespace Backend.BLL
 
         #region A loose representation of CQRS - Command/Query Responsibility Segregation
         #region Queries (reading the database)
+        public List<ValueTextItem<int>> ListInstructors()
+        {
+            var result = from person in _context.Instructors
+                         select new ValueTextItem<int>
+                         {
+                             Value = person.InstructorId,
+                             Text = person.Name
+                         };
+            return result.ToList();
+        }
+
+
         public List<Models.CapstoneClient> ListClients()
         {
             var result = from company in _context.CapstoneClients

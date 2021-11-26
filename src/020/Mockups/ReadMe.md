@@ -27,7 +27,7 @@ The following `StudentAssignment` record type serves to fulfill a *query* and a 
 ```cs
 public record StudentAssignment(int StudentId, string FullName, int? ClientId, string TeamLetter)
 {
-    public StudentAssignment() : this(0, 0, null) {}
+    public StudentAssignment() : this(0, null, null, null) {}
 }
 ```
 

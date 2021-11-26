@@ -4,37 +4,17 @@
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": false,
+   "IncludeConnectionString": true,
    "ModelNamespace": null,
    "OutputContextPath": "DAL",
    "OutputPath": "Entities",
-   "ProjectRootNamespace": "Backend",
+   "ProjectRootNamespace": "AppSecurity",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[CapstoneClients]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[CapstoneProjects]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[DbVersion]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Instructors]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Students]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[TeamAssignments]",
          "ObjectType": 0
       }
    ],

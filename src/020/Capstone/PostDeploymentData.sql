@@ -10,15 +10,24 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 INSERT DbVersion(Major, Minor, Build, ReleaseDate)
-VALUES (1, 0, 0, GETDATE())
+VALUES (2, 0, 0, GETDATE())
 GO
 
+
+SET IDENTITY_INSERT [dbo].[Instructors] ON 
+GO
+INSERT [dbo].[Instructors] ([InstructorId], [Name])
+VALUES (5000, N'Hugh Mann')
+      ,(5005, N'Anna Lyst')
+      ,(5010, N'Phil Turr')
+SET IDENTITY_INSERT [dbo].[Instructors] OFF
+GO
 
 SET IDENTITY_INSERT [dbo].[CapstoneClients] ON 
 GO
 INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [Confirmed]) VALUES (1, N'Gerhold Inc', N'Digitized disintermediate emulation', N'Joanne Bashirian', 1)
 GO
-INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [Confirmed]) VALUES (2, N'Weissnat Inc', N'Right-sized maximized support', N'Bernadette Pouros', 1)
+INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [Confirmed]) VALUES (2, N'Weissnat Inc', N'Right-sized maximized support', N'Bernadette Pouros', 0)
 GO
 INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [Confirmed]) VALUES (3, N'Hudson - Russel', N'Down-sized next generation utilisation', N'Mercedes Pacocha', 1)
 GO
@@ -30,6 +39,14 @@ INSERT [dbo].[CapstoneClients] ([Id], [CompanyName], [Slogan], [ContactName], [C
 GO
 SET IDENTITY_INSERT [dbo].[CapstoneClients] OFF
 GO
+
+INSERT [dbo].[CapstoneProjects] ([CapstoneClientID], [InstructorID])
+VALUES (1, 5000)
+      ,(3, 5010)
+      ,(4, 5005)
+      ,(5, 5010)
+      ,(6, 5000)
+
 SET IDENTITY_INSERT [dbo].[Students] ON 
 GO
 INSERT [dbo].[Students] ([StudentId], [SchoolId], [FirstName], [LastName]) VALUES (1, N'20102682', N'Timothy', N'Jacobi')

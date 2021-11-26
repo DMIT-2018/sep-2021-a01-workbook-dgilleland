@@ -24,6 +24,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <DacVersion>2.0.0.0</DacVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -66,6 +67,8 @@
     <Build Include="dbo\Tables\Students.sql" />
     <Build Include="dbo\Tables\TeamAssignments.sql" />
     <Build Include="dbo\Tables\DbVersion.sql" />
+    <Build Include="dbo\Tables\Instructors.sql" />
+    <Build Include="dbo\Tables\CapstoneProjects.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentData.sql" />

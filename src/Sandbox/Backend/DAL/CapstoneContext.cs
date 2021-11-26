@@ -20,13 +20,33 @@ namespace Backend.DAL
         }
 
         public virtual DbSet<CapstoneClient> CapstoneClients { get; set; }
+        public virtual DbSet<CapstoneProject> CapstoneProjects { get; set; }
         public virtual DbSet<DbVersion> DbVersions { get; set; }
+        public virtual DbSet<Instructor> Instructors { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<TeamAssignment> TeamAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<CapstoneProject>(entity =>
+            {
+                entity.HasKey(e => new { e.InstructorId, e.CapstoneClientId })
+                    .HasName("PK__Capstone__3FBE41D30DEC2464");
+
+                entity.HasOne(d => d.CapstoneClient)
+                    .WithMany(p => p.CapstoneProjects)
+                    .HasForeignKey(d => d.CapstoneClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CapstoneProjects_CapstoneClients");
+
+                entity.HasOne(d => d.Instructor)
+                    .WithMany(p => p.CapstoneProjects)
+                    .HasForeignKey(d => d.InstructorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CapstoneProjects_Instructors");
+            });
 
             modelBuilder.Entity<TeamAssignment>(entity =>
             {
