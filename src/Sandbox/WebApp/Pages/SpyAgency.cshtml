@@ -1,0 +1,29 @@
+﻿@page "{RegionName?}/{SubRegionName?}"
+@model WebApp.Pages.SpyAgencyModel
+@{
+}
+
+<h1>Spy Agency Deployment Centre</h1>
+
+<form method="post">
+    <label>Region
+        <select asp-for="RegionName"
+                onchange="this.form.submit()">
+            <option value="">Region</option>
+            @foreach(var place in Model.WorldRegions)
+            {
+                <option value="@place">@place</option>
+            }
+        </select>
+    </label>
+    <label>Sub-Region
+        <select asp-for="SubRegionName"
+                onchange="this.form.submit()">
+            <option value="">Sub-Region</option>
+            @foreach(var place in Model.SubRegions)
+            {
+                <option value="@place">@place</option>
+            }
+        </select>
+    </label>
+</form>

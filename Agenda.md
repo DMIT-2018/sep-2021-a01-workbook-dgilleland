@@ -59,8 +59,55 @@
 - **023** Queries and HTML Tables
 
 -->
-
+<!--
 ## Nove 1
 
 - **024** Bulk Editing
+
+-->
+
+<!-- copy/paste
+Watch the following video and add timestamps and titles for when topics change. Include at least 6 topic changes including the intro, agenda (if present), and outro. Send me the information in the following format.
+
+[0:00] - Intro
+[mm:ss] - Agenda (if present)
+[mm:ss] - Title for topic
+[mm:ss] - Title for topic
+[hh:mm:ss] - Title for topic
+[hh:mm:ss] - Outro
+
+Video_Link
+-->
+
+
+## *Easy Bonus Marks*
+
+Watch the following video and add timestamps and titles for when topics change. Include at least 6 topic changes including the intro, agenda (if present), and outro. Send me the information in the following format.
+
+- [0:00] - Intro
+- [mm:ss] - Agenda (if present)
+- [mm:ss] - Title for topic
+- [mm:ss] - Title for topic
+- [hh:mm:ss] - Title for topic
+- [hh:mm:ss] - Title for topic
+- [hh:mm:ss] - Outro
+
+Video_Link
+
+## Nov 26
+
+- **Take-Home #3 - Implementation Planning**
+  - Preview assignment - out today
+- **UI Patterns for Razor Page Data Entry**
+  - POST vs GET vs PRG (*Post-Redirect-Get*)
+  - When to use Post-Redirect-Get (drill-in with routing parameters *vs.* back-end data storage via BLL)
+  - When ***not*** to use Post-Redirect-Get
+  - Multiple Routing Parameters
+  - Cascading Drop-Downs (with automatic post-back `onchange`)
+  - Using enumerations in drop-downs
+  - Links with `asp-route`*`ParameterName`*`=`
+  - Using `Dictionary<TKey, TValue>` objects
+
+  ![Hand-Drawn Sketch](./src/Sandbox/UI-Patterns-AdHoc.png)
+
 
