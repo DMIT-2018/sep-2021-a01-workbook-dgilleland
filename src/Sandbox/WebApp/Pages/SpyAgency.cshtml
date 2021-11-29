@@ -1,29 +1,113 @@
-﻿@page "{RegionName?}/{SubRegionName?}"
+﻿@page "{RegionName?}/{SubRegionName?}/{CountryCode?}"
 @model WebApp.Pages.SpyAgencyModel
 @{
 }
 
+<style>
+section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+</style>
+
 <h1>Spy Agency Deployment Centre</h1>
 
-<form method="post">
-    <label>Region
-        <select asp-for="RegionName"
-                onchange="this.form.submit()">
-            <option value="">Region</option>
-            @foreach(var place in Model.WorldRegions)
-            {
-                <option value="@place">@place</option>
-            }
-        </select>
-    </label>
-    <label>Sub-Region
-        <select asp-for="SubRegionName"
-                onchange="this.form.submit()">
-            <option value="">Sub-Region</option>
-            @foreach(var place in Model.SubRegions)
-            {
-                <option value="@place">@place</option>
-            }
-        </select>
-    </label>
-</form>
+<section>
+    <form method="post" asp-page-handler="ChangeRegion">
+        <label>Region
+            <select asp-for="RegionName"
+                    onchange="this.form.submit()">
+                <option value="">Region</option>
+                @foreach (var place in Model.WorldRegions)
+                {
+                                            <option value="@place">@place</option>
+                }
+            </select>
+        </label>
+    </form>
+    <form method="post" asp-page-handler="ChangeSubRegion">
+        <label>Sub-Region
+            <select asp-for="SubRegionName"
+                    onchange="this.form.submit()">
+                <option value="">Sub-Region</option>
+                @foreach (var place in Model.SubRegions)
+                {
+                                            <option value="@place">@place</option>
+                }
+            </select>
+        </label>
+    </form>
+    <form method="post" asp-page-handler="ChangeCountry">
+        <label>Country
+            <select asp-for="CountryCode"
+                    onchange="this.form.submit()">
+                <option value="">Country</option>
+                @foreach (var place in Model.Countries)
+                {
+                                            <option value="@place.Alpha3Code">@place.CommonName</option>
+                }
+            </select>
+        </label>
+    </form>
+</section>
+
+<hr />
+
+@if (!string.IsNullOrEmpty(Model.CountryCode))
+{
+    <h2>Agents</h2>
+    <form method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <button type="submit" asp-page-handler="AddAgent">Add</button>
+                    </th>
+                    <th>
+                        <input asp-for="NewlyAssignedAgent.CodeName" placeholder="Code Name"/>
+                    </th>
+                    <th>
+                        <select asp-for="NewlyAssignedAgent.LocalAssignment">
+                        @foreach (var item in Model.Assignments)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                        </select>
+                    </th>
+                    <th>
+                        <input asp-for="NewlyAssignedAgent.PrimaryMission" placeholder="Primary Mission" />
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.AgentAssignments)
+                {
+                    <tr>
+                        <td><button type="submit">Remove</button></td>
+                        <td>
+                            @item.CodeName
+                            <input type="hidden" 
+                                name="AgentAssignment.Index" 
+                                value="@item.CodeName" />
+                            <input type="hidden" 
+                                name="AgentAssignments[@item.CodeName].CodeName" 
+                                value="@item.CodeName" />
+                        </td>
+                        <td>
+                            @item.LocalAssignment
+                            <input type="hidden" 
+                                    name="AgentAssignments[@item.CodeName].LocalAssignment" 
+                                    value="@item.LocalAssignment" />
+                        </td>
+                        <td>
+                            @item.PrimaryMission
+                            <input type="hidden" 
+                                name="AgentAssignments[@item.CodeName].PrimaryMission" 
+                                value="@item.PrimaryMission" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}

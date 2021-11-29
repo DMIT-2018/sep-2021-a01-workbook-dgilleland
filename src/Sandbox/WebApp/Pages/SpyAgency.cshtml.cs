@@ -1,4 +1,5 @@
 using Backend.BLL;
+using Backend.Models.SpyAgency;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nager.Country;
@@ -16,27 +17,75 @@ namespace WebApp.Pages
 
         public List<Region> WorldRegions { get; set; }
         public List<SubRegion> SubRegions { get; set; }
+        public List<ICountryInfo> Countries { get; set; }
+        public List<Assignment> Assignments
+        { 
+            get
+            {
+                var values = System.Enum.GetValues<Assignment>();
+                return new List<Assignment>(values);
+            }
+        }
+
 
         [BindProperty(SupportsGet = true)]
         public string RegionName { get; set; }
         [BindProperty(SupportsGet = true)]
-        public string SubRegionName { get; set; }
+        public SubRegion SubRegionName { get; set; }
+        [BindProperty(SupportsGet =true)]
+        public string CountryCode { get; set; }
+        [BindProperty]
+        public List<AgentAssignment> AgentAssignments { get; set; } = new List<AgentAssignment>(); // Ensure an empty list
+        [BindProperty]
+        public AgentAssignment NewlyAssignedAgent { get; set; }
 
         public void OnGet()
         {
-            WorldRegions = _service.ListWorldRegions();
-            SubRegions = _service.GetSubRegions(RegionName);
-            // TODO: Resume class here....
+            PopulateDropDownData();
         }
 
-        public IActionResult OnPost()
+        private void PopulateDropDownData()
         {
-            // General handling of the navigation of
-            // selecting a Region/SubRegion/Country
-            return RedirectToPage(new 
+            WorldRegions = _service.ListWorldRegions();
+            SubRegions = _service.GetSubRegions(RegionName);
+            Countries = _service.GetCountries(SubRegionName);
+        }
+
+        public IActionResult OnPostChangeRegion()
+        {
+            return RedirectToPage(new
             {
-                RegionName = RegionName
+                RegionName = RegionName,
+                SubRegionName = (string)null,
+                CountryCode = (string)null
             });
+        }
+
+        public IActionResult OnPostChangeSubRegion()
+        {
+            return RedirectToPage(new
+            {
+                RegionName = RegionName,
+                SubRegionName = SubRegionName,
+                CountryCode = (string)null
+            });
+        }
+
+        public IActionResult OnPostChangeCountry()
+        {
+            return RedirectToPage(new
+            {
+                RegionName = RegionName,
+                SubRegionName = SubRegionName,
+                CountryCode = CountryCode
+            });
+        }
+
+        public void OnPostAddAgent()
+        {
+            PopulateDropDownData();
+            AgentAssignments.Add(NewlyAssignedAgent);
+            NewlyAssignedAgent = new(null, Assignment.None, null); // TODO: Fix this, as it is not working....
         }
     }
 }
