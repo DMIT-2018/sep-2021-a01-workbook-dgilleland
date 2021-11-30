@@ -48,7 +48,7 @@ namespace WebApp.Pages
         {
             WorldRegions = _service.ListWorldRegions();
             SubRegions = _service.GetSubRegions(RegionName);
-            Countries = _service.GetCountries(SubRegionName);
+            Countries = SubRegionName == SubRegion.None ? new List<ICountryInfo>() : _service.GetCountries(SubRegionName);
         }
 
         public IActionResult OnPostChangeRegion()
@@ -85,7 +85,6 @@ namespace WebApp.Pages
         {
             PopulateDropDownData();
             AgentAssignments.Add(NewlyAssignedAgent);
-            NewlyAssignedAgent = new(null, Assignment.None, null); // TODO: Fix this, as it is not working....
         }
     }
 }
