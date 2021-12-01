@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Models;
+using Backend.Models.SpyAgency;
 using Microsoft.EntityFrameworkCore;
 using Nager.Country;
 using System;
@@ -84,6 +85,20 @@ namespace Backend.BLL
                        country.SubRegion.Equals(area))
                 .ToList();
             return result;
+        }
+        #endregion
+
+        #region SpyAgency Work
+        // "Fake" database
+        private static Dictionary<string, List<AgentAssignment>> AgentDeployments
+            = new();
+
+        public void DeployAgents(string countryCode, List<AgentAssignment> agentAssignments)
+        {
+            if (AgentDeployments.ContainsKey(countryCode))
+                AgentDeployments[countryCode] = agentAssignments;
+            else
+                AgentDeployments.Add(countryCode, agentAssignments);
         }
         #endregion
     }

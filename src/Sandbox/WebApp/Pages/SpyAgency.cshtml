@@ -60,6 +60,7 @@
 @if (!string.IsNullOrEmpty(Model.CountryCode))
 {
     <h2>Agents</h2>
+    <div>@Model.WarningMessage</div>
     <form method="POST">
         <table>
             <thead>
@@ -113,5 +114,8 @@
                 }
             </tbody>
         </table>
+
+        <button type="submit" asp-page-handler="AssignAgents">Assign</button>
+        <button type="submit" asp-page-handler="ClearForm">Clear Form</button>
     </form>
 }

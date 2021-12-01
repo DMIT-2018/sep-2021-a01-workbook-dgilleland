@@ -1,6 +1,7 @@
 ﻿using Backend.DAL;
 using Backend.Entities;
 using Backend.Models.Queries;
+using Backend.Models.SpyAgency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
