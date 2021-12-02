@@ -40,10 +40,14 @@ namespace WebApp.Pages
         public List<AgentAssignment> AgentAssignments { get; set; } = new List<AgentAssignment>(); // Ensure an empty list
         [BindProperty]
         public AgentAssignment NewlyAssignedAgent { get; set; }
+        [BindProperty]
+        public string AgentToRemove { get; set; }
 
         public void OnGet()
         {
             PopulateDropDownData();
+            if(!string.IsNullOrEmpty(CountryCode))
+                AgentAssignments = _service.LocateAgents(CountryCode);
         }
 
         private void PopulateDropDownData()
@@ -98,7 +102,13 @@ namespace WebApp.Pages
 
         public void OnPostRemoveAgent()
         {
+            var agent = AgentAssignments.FirstOrDefault(person => person.CodeName == AgentToRemove);
+            if (agent != null)
+                AgentAssignments.Remove(agent);
+            else
+                WarningMessage = $"Hmm. For some reason, {AgentToRemove} is already gone.";
 
+            PopulateDropDownData();
         }
 
         public IActionResult OnPostAssignAgents()

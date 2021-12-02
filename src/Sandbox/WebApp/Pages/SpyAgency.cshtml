@@ -88,7 +88,10 @@
                 @foreach (var item in Model.AgentAssignments)
                 {
                     <tr>
-                        <td><button type="submit">Remove</button></td>
+                        <td>
+                            <button type="submit" name="AgentToRemove" value="@item.CodeName"
+                                    asp-page-handler="RemoveAgent">Remove</button>
+                        </td>
                         <td>
                             @item.CodeName
                             <input type="hidden"

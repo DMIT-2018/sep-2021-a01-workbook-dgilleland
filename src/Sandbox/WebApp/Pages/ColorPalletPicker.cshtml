@@ -1,0 +1,95 @@
+﻿@page
+@model WebApp.Pages.ColorPalletPickerModel
+@{
+}
+<style>
+    main>form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .danger {
+        color: var(--danger-text-color);
+        background-color: var(--danger-color);
+    }
+    .danger:enabled:hover {
+        background-color: var(--danger-hover-color);
+        border-color: transparent;
+    }
+</style>
+
+<form method="post">
+    <div>
+        <h1>Available Colors</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Hex</th>
+                    <th>RGB</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AvailableColors)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" name="AvailableColors.Index" value="@item.Name" />
+                            <button type="submit" name="SelectedColor" value="@item.Name" asp-page-handler="AddItem">Add</button>
+                        </td>
+                        <td>
+                            <input type="hidden" name="AvailableColors[@item.Name].Name" value="@item.Name" />
+                            @item.Name
+                        </td>
+                        <td>
+                            <input type="hidden" name="AvailableColors[@item.Name].HexCode" value="@item.HexCode" />
+                            @item.HexCode
+                        </td>
+                        <td>
+                            <input type="hidden" name="AvailableColors[@item.Name].RgbCode" value="@item.RgbCode" />
+                            @item.RgbCode
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>Your Color Pallete</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Hex</th>
+                    <th>RGB</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ColorPallete)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" name="ColorPallete.Index" value="@item.Name" />
+                            <button type="submit" name="SelectedColor" value="@item.Name" asp-page-handler="RemoveItem" class="danger">Remove</button>
+                        </td>
+                        <td>
+                            <input type="hidden" name="ColorPallete[@item.Name].Name" value="@item.Name" />
+                            @item.Name
+                        </td>
+                        <td>
+                            <input type="hidden" name="ColorPallete[@item.Name].HexCode" value="@item.HexCode" />
+                            @item.HexCode
+                        </td>
+                        <td>
+                            <input type="hidden" name="ColorPallete[@item.Name].RgbCode" value="@item.RgbCode" />
+                            @item.RgbCode
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
