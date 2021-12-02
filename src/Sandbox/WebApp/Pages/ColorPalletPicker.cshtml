@@ -15,6 +15,9 @@
         background-color: var(--danger-hover-color);
         border-color: transparent;
     }
+    th, td {
+        white-space: nowrap;
+    }
 </style>
 
 <form method="post">
@@ -39,6 +42,7 @@
                         </td>
                         <td>
                             <input type="hidden" name="AvailableColors[@item.Name].Name" value="@item.Name" />
+                            <span style="display:inline-block; width: 16px; height: 16px; background-color:@item.HexCode"></span>
                             @item.Name
                         </td>
                         <td>
@@ -76,6 +80,7 @@
                         </td>
                         <td>
                             <input type="hidden" name="ColorPallete[@item.Name].Name" value="@item.Name" />
+                            <span style="display:inline-block; width: 16px; height: 16px; background-color:@item.HexCode"></span>
                             @item.Name
                         </td>
                         <td>
