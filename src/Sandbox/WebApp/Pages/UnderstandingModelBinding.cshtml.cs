@@ -28,15 +28,15 @@ namespace WebApp.Pages
         public void OnPostPartialClear()
         {
             CopyData(nameof(OnPostPartialClear));
-            Person.FirstName = null;
-            ModelState.Clear();
+            Person.FirstName = null; // Clear just part of the person information
+            ModelState.Clear(); // Without this, the change to Person.FirstName will not be applied when the page is rendered
         }
 
         public void OnPostFullClear()
         {
             CopyData(nameof(OnPostFullClear));
-            Person = null;
-            ModelState.Clear();
+            Person = null; // Clear out the whole property object
+            ModelState.Clear(); // Without this, the change to Person will not be applied when the page is rendered
         }
 
         private void CopyData(string handlerName)
