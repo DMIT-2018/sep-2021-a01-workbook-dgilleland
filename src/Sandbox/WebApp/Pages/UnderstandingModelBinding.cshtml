@@ -1,0 +1,34 @@
+﻿@page
+@model WebApp.Pages.UnderstandingModelBindingModel
+@{
+}
+
+<style>
+    form{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    }
+</style>
+<form method="post">
+    <label asp-for="Person.FirstName">Two-Way Binding</label>
+    <label asp-for="Person.LastName">Two-Way Binding</label>
+    <label asp-for="Person.GraduationDate">One-Way Binding</label>
+
+    <input asp-for="Person.FirstName" placeholder="First Name" autofocus />
+    <input asp-for="Person.LastName" placeholder="Last Name" />
+    <input type="date" name="Person.GraduationDate" placeholder="Graduation Date" />
+
+    <button type="submit" asp-page-handler="PartialClear"><b>Partial Clear</b></button>
+    <button type="submit" asp-page-handler="FullClear"><b>Full Clear</b></button>
+    <button type="submit" asp-page-handler="Normal"><b>Normal</b></button>
+</form>
+
+    @if(!Model.IsGet)
+    {
+<blockquote>
+        (@Model.PostHandler) - 
+        <b>@Model.FirstName</b> <b>@Model.LastName</b>
+        Graduated on <b>@Model.GraduationDate.ToShortDateString()</b>
+</blockquote>
+    }
