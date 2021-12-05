@@ -24,8 +24,10 @@
         display: none;
     }
     tbody > tr.selected {
-        padding-left: 10px;
         background-color: azure;
+    }
+    .skills td {
+        padding-left: 1.7rem;
     }
     blockquote.warning {
         border-color: var(--danger-color);
@@ -171,7 +173,7 @@
                                     asp-page-handler="RemoveAgent"><i class="las la-times"></i></button>
                         </td>
                     </tr>
-                    <tr class="selected hidden">
+                    <tr class="skills selected hidden">
                         <td colspan="4">
                             @if(Model.Agents.ContainsKey(item.CodeName)){
                                 string skills = "";
@@ -184,6 +186,7 @@
                                         skills += ", ";
                                     }
                                 }
+                                @: Trained in: 
                                 <b>@skills</b>
                             }
                             else
