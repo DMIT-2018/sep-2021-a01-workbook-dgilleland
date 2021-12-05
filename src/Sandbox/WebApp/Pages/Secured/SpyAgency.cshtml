@@ -1,5 +1,6 @@
 ﻿@page "{RegionName?}/{SubRegionName?}/{CountryCode?}"
-@model WebApp.Pages.SpyAgencyModel
+@using Humanizer
+@model WebApp.Pages.Secured.SpyAgencyModel
 @{
 }
 
@@ -9,9 +10,32 @@
         grid-template-columns: 1fr 1fr 1fr;
         gap: 5px;
     }
+
+    [type=submit].danger {
+        color: var(--danger-text-color);
+        background-color: var(--danger-hover-color);
+        border-color: transparent;
+    }
+    [type=submit].danger:hover {
+        background-color: var(--danger-hover-color);
+        border-color: var(--danger-color);
+    }
+    tbody > tr.hidden {
+        display: none;
+    }
+    tbody > tr.selected {
+        padding-left: 10px;
+        background-color: azure;
+    }
+    blockquote.warning {
+        border-color: var(--danger-color);
+    }
+    blockquote.feedback {
+        border-color: var(--success-color);
+    }
 </style>
 
-<h1>Spy Agency Deployment Centre</h1>
+<h1>Spy Agency Deployment Centre <i class="las la-user-secret"></i></h1>
 
 <section>
     <form method="post" asp-page-handler="ChangeRegion">
@@ -60,20 +84,42 @@
 @if (!string.IsNullOrEmpty(Model.CountryCode))
 {
     <h2>Agents</h2>
-    <div>@Model.WarningMessage</div>
+
+    if (!string.IsNullOrEmpty(Model.WarningMessage))
+    {
+        <blockquote class="warning">@Model.WarningMessage</blockquote>
+    }
+    if (!string.IsNullOrEmpty(Model.FeedbackMessage))
+    {
+        <blockquote class="feedback">@Model.WarningMessage</blockquote>
+    }
+
+    <script>
+        const toggleDetails = function(el) {
+            console.log(el);
+            if(el.classList.contains('la-caret-right')){
+                el.classList.remove('la-caret-right');
+                el.classList.add('la-caret-down');
+                el.parentElement.parentElement.classList.add('selected');
+                el.parentElement.parentElement.nextElementSibling.classList.remove('hidden');
+            } else {
+                el.classList.add('la-caret-right');
+                el.classList.remove('la-caret-down');
+                el.parentElement.parentElement.classList.remove('selected');
+                el.parentElement.parentElement.nextElementSibling.classList.add('hidden');
+            }
+        }
+    </script>
     <form method="POST">
         <table>
             <thead>
                 <tr>
                     <th>
-                        <button type="submit" asp-page-handler="AddAgent">Add</button>
-                    </th>
-                    <th>
-                        <input name="NewlyAssignedAgent.CodeName" placeholder="Code Name" />
-                        <datalist>
+                        <input name="NewlyAssignedAgent.CodeName" placeholder="Code Name" list="agents" />
+                        <datalist id="agents">
                             @foreach(var agent in Model.Agents)
                             {
-                                <option value="@agent.Key"><b>@agent.Key</b> (@agent.Value.Count skills)</option>
+                                <option value="@agent.Key">@agent.Key - (@agent.Value.Count skills)</option>
                             }
                         </datalist>
                     </th>
@@ -88,6 +134,9 @@
                     <th>
                         <input name="NewlyAssignedAgent.PrimaryMission" placeholder="Primary Mission" />
                     </th>
+                    <th>
+                        <button type="submit" asp-page-handler="AddAgent" title="Add Agent"><i class="las la-plus"></i></button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -95,10 +144,7 @@
                 {
                     <tr>
                         <td>
-                            <button type="submit" name="AgentToRemove" value="@item.CodeName"
-                                    asp-page-handler="RemoveAgent">Remove</button>
-                        </td>
-                        <td>
+                            <i class="las la-caret-right" onclick="toggleDetails(this)"></i>
                             @item.CodeName
                             <input type="hidden"
                            name="AgentAssignments.Index"
@@ -118,6 +164,32 @@
                             <input type="hidden"
                            name="AgentAssignments[@item.CodeName].PrimaryMission"
                            value="@item.PrimaryMission" />
+                        </td>
+                        <td>
+                            <button type="submit" name="AgentToRemove" value="@item.CodeName"
+                                    title="Remove Agent" class="danger"
+                                    asp-page-handler="RemoveAgent"><i class="las la-times"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="selected hidden">
+                        <td colspan="4">
+                            @if(Model.Agents.ContainsKey(item.CodeName)){
+                                string skills = "";
+                                var lastSkill = Model.Agents[item.CodeName].Last();
+                                foreach(var skill in Model.Agents[item.CodeName])
+                                {
+                                    skills += skill.Humanize();
+                                    if(skill != lastSkill)
+                                    {
+                                        skills += ", ";
+                                    }
+                                }
+                                <b>@skills</b>
+                            }
+                            else
+                            {
+                               <i>No Listed Skills</i>
+                            }
                         </td>
                     </tr>
                 }

@@ -71,6 +71,7 @@ namespace Backend.BLL
             {
                 // "Lazy-loading" of data
                 if (_AgentSkillSets == null)
+                {
                     _AgentSkillSets = new Dictionary<string, List<Skill>>
                     {
                         { "Bjorne", new() { Skill.Field_Training, Skill.Weapons_Specialist, Skill.Infiltration } },
@@ -80,6 +81,9 @@ namespace Backend.BLL
                         { "Guido", new() { Skill.Multiple_Languages, Skill.Ventriloquism } },
                         { "DanG-IT", new() { Skill.IT_Specialist } }
                     };
+                    foreach (var skillset in _AgentSkillSets.Values)
+                        skillset.Add(Skill.Basic_Training);
+                }
                 return _AgentSkillSets;
             }
         }

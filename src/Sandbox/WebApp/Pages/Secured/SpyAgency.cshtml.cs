@@ -6,7 +6,7 @@ using Nager.Country;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebApp.Pages
+namespace WebApp.Pages.Secured
 {
     public class SpyAgencyModel : PageModel
     {
