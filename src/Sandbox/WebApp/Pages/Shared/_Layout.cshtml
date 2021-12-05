@@ -15,25 +15,34 @@
                 <li><a asp-area="" asp-page="/Index">WebApp</a></li>
                 <li><a asp-area="" asp-page="/Index">Home</a>
                     <ul>
-                        <li><a asp-area="" asp-page="/ColorPalletPicker">Color Pallet Picker</a></li>
-                        <li><a asp-area="" asp-page="/UnderstandingModelBinding">One and Two-Way Model Binding</a></li>
+                        <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
+                        <li><a asp-area="" asp-page="/About">About</a></li>
+                        <li><a asp-area="" asp-page="/Contact">Contact Us</a></li>
                     </ul>
                 </li>
                 <li>
-                    Capstone
+                    <a href="#">Capstone</a>
                     <ul>
                         <li><a asp-area="" asp-page="/Admin/ManageCapstoneStudents" asp-route-SelectedStudent="">Manage Capstone Students</a></li>
                         <li><a asp-area="" asp-page="/ViewCapstoneStudents">View Capstone Students</a></li>
                         <li><a asp-area="" asp-page="/Admin/AssignTeams">Assign Teams</a></li>
                     </ul>
                 </li>
+                <li><a href="#">Demos</a>
+                    <ul>
+                        <li><a asp-area="" asp-page="/ColorPalletPicker">Color Pallet Picker</a></li>
+                        <li><a asp-area="" asp-page="/UnderstandingModelBinding">One and Two-Way Model Binding</a></li>
+                    </ul>
+                </li>
                 @if (@User.Identity.IsAuthenticated)
                 {
-                    <li><a asp-area="" asp-page="/Secret/SpyAgency">Spys R Us</a></li>
+                    <li><a asp-area="" asp-page="/Secret">Spys R Us</a>
+                        <ul>
+                            <li><a asp-area="" asp-page="/Secret/Training">Agent Skills</a></li>
+                            <li><a asp-area="" asp-page="/Secret/SpyAgency">Global Assignments</a></li>
+                        </ul>
+                    </li>
                 }
-                <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
-                <li><a asp-area="" asp-page="/About">About</a></li>
-                <li><a asp-area="" asp-page="/Contact">Contact Us</a></li>
                 <partial name="_LoginPartial" />
             </ul>
         </nav>
