@@ -70,6 +70,12 @@
                     </th>
                     <th>
                         <input name="NewlyAssignedAgent.CodeName" placeholder="Code Name" />
+                        <datalist>
+                            @foreach(var agent in Model.Agents)
+                            {
+                                <option value="@agent.Key"><b>@agent.Key</b> (@agent.Value.Count skills)</option>
+                            }
+                        </datalist>
                     </th>
                     <th>
                         <select name="NewlyAssignedAgent.LocalAssignment">

@@ -10,8 +10,8 @@ namespace WebApp.Pages
 {
     public class SpyAgencyModel : PageModel
     {
-        private readonly AboutService _service;
-        public SpyAgencyModel(AboutService service)
+        private readonly SecretService _service;
+        public SpyAgencyModel(SecretService service)
         {
             _service = service;
         }
@@ -19,6 +19,7 @@ namespace WebApp.Pages
         public List<Region> WorldRegions { get; set; }
         public List<SubRegion> SubRegions { get; set; }
         public List<ICountryInfo> Countries { get; set; }
+        public Dictionary<string, List<Skill>> Agents { get; set; }
         public List<Assignment> Assignments
         { 
             get
@@ -28,6 +29,7 @@ namespace WebApp.Pages
             }
         }
         public string WarningMessage { get; set; }
+        [TempData]
         public string FeedbackMessage { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -55,6 +57,7 @@ namespace WebApp.Pages
             WorldRegions = _service.ListWorldRegions();
             SubRegions = _service.GetSubRegions(RegionName);
             Countries = SubRegionName == SubRegion.None ? new List<ICountryInfo>() : _service.GetCountries(SubRegionName);
+            Agents = _service.AgentSkillSets;
         }
 
         public IActionResult OnPostChangeRegion()

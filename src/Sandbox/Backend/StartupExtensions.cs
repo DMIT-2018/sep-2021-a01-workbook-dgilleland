@@ -26,6 +26,7 @@ namespace Backend
                 var context = serviceProvider.GetRequiredService<CapstoneContext>();
                 return new CapstoneService(context);
             });
+            services.AddTransient<SecretService>();
         }
     }
 }
