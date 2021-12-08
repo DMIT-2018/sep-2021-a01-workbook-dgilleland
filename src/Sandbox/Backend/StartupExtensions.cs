@@ -27,6 +27,7 @@ namespace Backend
                 return new CapstoneService(context);
             });
             services.AddTransient<SecretService>();
+            services.AddTransient<RandomDataService>();
         }
     }
 }

@@ -1,4 +1,24 @@
-# Dependency Injection and Internal Database Models
+Key information
+
+## User Secrets
+
+The latest user secrets for my example include some key **application settings** for the default
+*SuperUser* who is acting as a web-master for the website.
+
+```json
+{
+    "ConnectionStrings": {
+        "Capstone": "Server=.;Database=Capstone;Integrated Security=true;"
+    },
+    "Setup": {
+        "SuperUser": "Super@user.local",
+        "SuperUserEmail": "Super@user.local",
+        "SuperUserPassword": "D3fault.user"
+    }
+}
+```
+
+## Dependency Injection and Internal Database Models
 
 Part of the reason to have an internal database context and entities is to **make it hard to do the *wrong* thing**. In other words, we don't want to expose our database model to the Presentation Layer because this "leaking" could cause tight coupling between the backend and the frontend. We want the freedom to modify our backend while minimizing any effect on our frontend should we need to change the database model. We also want to have loose coupling for our services, and this means leveraging **dependency injection** in creating our services.
 

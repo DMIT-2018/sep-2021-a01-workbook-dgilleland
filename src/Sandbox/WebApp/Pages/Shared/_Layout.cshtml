@@ -35,17 +35,19 @@
                     <ul>
                         <li><a asp-area="" asp-page="/ColorPalletPicker">Color Pallet Picker</a></li>
                         <li><a asp-area="" asp-page="/UnderstandingModelBinding">One and Two-Way Model Binding</a></li>
+                        <li><a asp-area="" asp-page="/JobCandidates">Job Candidates</a></li>
                     </ul>
                 </li>
-                @*@if (@User.Identity.IsAuthenticated)
-                {*@
-                    <li><a asp-area="" asp-page="/Secured">Spys R Us</a>
+                @if (@User.Identity.IsAuthenticated)
+                {
+                    // Will "hide" these super-secret pages from everyone but the SuperUser
+                    <li><a asp-area="" asp-page="/Secured/Index">Spys R Us</a>
                         <ul>
                             <li><a asp-area="" asp-page="/Secured/Training">Agent Skills</a></li>
                             <li><a asp-area="" asp-page="/Secured/SpyAgency">Global Assignments</a></li>
                         </ul>
                     </li>
-                @*}*@
+                }
                 <partial name="_LoginPartial" />
             </ul>
         </nav>

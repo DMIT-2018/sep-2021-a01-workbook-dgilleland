@@ -27,21 +27,24 @@ namespace WebApp
                 {
                     try
                     {
-                        var configuration = services.GetRequiredService<IConfiguration>();
                         var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-                        string superUser = configuration.GetValue<string>("Setup:SuperUser");
-                        string superMail = configuration.GetValue<string>("Setup:SuperUserEmail");
-                        string superPwrd = configuration.GetValue<string>("Setup:SuperUserPassword");
-                        var user = new IdentityUser
+                        if(!userManager.Users.Any())
                         {
-                            UserName = superUser,
-                            Email = superMail,
-                            EmailConfirmed = true,
-                        };
-                        var result = await userManager.CreateAsync(user, superPwrd);
-                        if (!result.Succeeded)
-                        {
-                            logger.LogInformation("User was not created");
+                            var configuration = services.GetRequiredService<IConfiguration>();
+                            string superUser = configuration.GetValue<string>("Setup:SuperUser");
+                            string superMail = configuration.GetValue<string>("Setup:SuperUserEmail");
+                            string superPwrd = configuration.GetValue<string>("Setup:SuperUserPassword");
+                            var user = new IdentityUser
+                            {
+                                UserName = superUser,
+                                Email = superMail,
+                                EmailConfirmed = true,
+                            };
+                            var result = await userManager.CreateAsync(user, superPwrd);
+                            if (!result.Succeeded)
+                            {
+                                logger.LogInformation("User was not created");
+                            }
                         }
                     }
                     catch (Exception ex)

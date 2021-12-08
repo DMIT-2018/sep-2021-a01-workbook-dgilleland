@@ -1,0 +1,61 @@
+﻿@page
+@model WebApp.Pages.JobCandidatesModel
+@{
+}
+
+<h1>Job Candidates</h1>
+
+<form method="post">
+    <label>
+        Job Position
+        <select>
+            <option asp-for="SelectedOpening">Select a Job</option>
+            @foreach (var job in Model.Openings)
+            {
+                <option selected="@(job == Model.SelectedOpening)">@job</option>
+            }
+        </select>
+    </label>
+    <button type="submit">Shortlist</button>
+    <table>
+        <thead>
+            <tr>
+                <th>✔</th>
+                <th>Name</th>
+                <th>Interview Date</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var person in Model.Applicants)
+            {
+                var candidate = Model.Candidates.SingleOrDefault(x => x.Id == person.Id);
+                var interviewDate = candidate != null && candidate.InterviewDate.HasValue
+                                  ? candidate.InterviewDate.Value.ToString("yyyy-MM-dd")
+                                  :  ""; // simplifies 
+                var notes = candidate != null ? candidate.Notes : "";
+                <tr>
+                    <td>
+                        <input type="hidden" name="Candidates.Index" value="@person.Id" />
+                        <input type="hidden" name="Candidates[@person.Id].Id" value="@person.Id" />
+                        <input type="checkbox" name="Candidates[@person.Id].ShortList" checked="@candidate?.ShortList" value="true"  />
+                    </td>
+                    <td>
+                        <input type="hidden" name="Applicants.Index" value="@person.Id" />
+                        <input type="hidden" name="Applicants[@person.Id].Id" value="@person.Id" />
+                        <input type="hidden" name="Applicants[@person.Id].FirstName" value="@person.FirstName" />
+                        <input type="hidden" name="Applicants[@person.Id].LastName" value="@person.LastName" />
+                        @person.FirstName <b>@person.LastName</b>
+                    </td>
+                    <td>
+                        <input type="date" name="Candidates[@person.Id].InterviewDate"
+                            value="@interviewDate"/>
+                    </td>
+                    <td>
+                        <textarea style="min-height:auto" rows="2" name="Candidates[@person.Id].Notes">@notes</textarea>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

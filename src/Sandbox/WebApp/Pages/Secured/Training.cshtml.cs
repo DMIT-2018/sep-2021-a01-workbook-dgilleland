@@ -5,8 +5,15 @@ namespace WebApp.Pages.Secured
 {
     public class TrainingModel : PageModel
     {
+        
+
         public void OnGet()
         {
+        }
+
+        public void OnPost()
+        {
+
         }
     }
 }
