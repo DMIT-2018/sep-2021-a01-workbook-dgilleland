@@ -2,6 +2,10 @@ Key information
 
 ## User Secrets
 
+> ### Update-Database
+>
+> Make sure you run **`Update-Database -Context ApplicationDbContext`** in the Package Manager Console before running the application. This will make sure that the database tables for logins have been correctly set up.
+
 The latest user secrets for my example include some key **application settings** for the default
 *SuperUser* who is acting as a web-master for the website.
 
