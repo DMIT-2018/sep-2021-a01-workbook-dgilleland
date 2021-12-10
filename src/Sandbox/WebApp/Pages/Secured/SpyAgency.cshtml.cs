@@ -2,6 +2,7 @@ using Backend.BLL;
 using Backend.Models.SpyAgency;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Nager.Country;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace WebApp.Pages.Secured
     public class SpyAgencyModel : PageModel
     {
         private readonly SecretService _service;
-        public SpyAgencyModel(SecretService service)
+        private readonly ILogger<SpyAgencyModel> _logger;
+        public SpyAgencyModel(SecretService service, ILogger<SpyAgencyModel> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         public List<Region> WorldRegions { get; set; }
@@ -95,12 +98,16 @@ namespace WebApp.Pages.Secured
             // Minimal UI validation
             // 1. Preventing duplicates
             if (AgentAssignments.Any(agent => agent.CodeName == NewlyAssignedAgent.CodeName))
+            {
                 WarningMessage = "You cannot add duplicate agents";
+                _logger.LogInformation(WarningMessage);
+            }
             else
                 // UI Processing
                 AgentAssignments.Add(NewlyAssignedAgent);
 
             PopulateDropDownData();
+
         }
 
         public void OnPostRemoveAgent()
